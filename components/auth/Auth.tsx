@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useUserContext } from "../context/user/UserContext";
+import { useUserContext } from "../../context/user/UserContext";
 
 export default function Auth({ children }: { children: React.ReactElement }) {
   const router = useRouter();

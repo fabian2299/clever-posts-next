@@ -5,7 +5,8 @@ import { Toaster } from "react-hot-toast";
 import UserProvider from "../context/user/UserContext";
 import type { NextComponentType } from "next/types";
 import { Router } from "next/router";
-import Auth from "../components/Auth";
+import Auth from "../components/auth/Auth";
+import { appWithTranslation } from "next-i18next";
 
 type ComponentWithAuth = NextComponentType & { auth: boolean };
 interface AppPropsWithAuth extends AppInitialProps {
@@ -13,7 +14,7 @@ interface AppPropsWithAuth extends AppInitialProps {
   router: Router;
 }
 
-export default function App({ Component, pageProps }: AppPropsWithAuth) {
+function App({ Component, pageProps }: AppPropsWithAuth) {
   return (
     <UserProvider>
       <PostsProvider>
@@ -29,3 +30,5 @@ export default function App({ Component, pageProps }: AppPropsWithAuth) {
     </UserProvider>
   );
 }
+
+export default appWithTranslation(App);

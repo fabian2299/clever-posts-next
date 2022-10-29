@@ -5,7 +5,8 @@ import { UserReducer } from "./userReducer";
 
 interface UserContextProps {
   user: User | null;
-  login: (user: User) => void;
+  login: (user: User) => Promise<void>;
+  logout: (user: User) => Promise<void>;
 }
 
 export const UserContext = createContext({} as UserContextProps);
@@ -15,7 +16,10 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  user: null,
+  user:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null,
 };
 
 export default function UserProvider({
@@ -25,12 +29,19 @@ export default function UserProvider({
 }) {
   const [state, dispatch] = useReducer(UserReducer, initialState);
 
-  const login = (user: User) => {
+  const login = async (user: User) => {
+    localStorage.setItem("user", JSON.stringify(user));
     dispatch({ type: "LOGIN", payload: { user } });
   };
 
+  const logout = async (user: User) => {
+    const newUserStatus = { ...user, auth: false };
+    localStorage.setItem("user", JSON.stringify(newUserStatus));
+    dispatch({ type: "LOGOUT", payload: { user: newUserStatus } });
+  };
+
   return (
-    <UserContext.Provider value={{ ...state, login }}>
+    <UserContext.Provider value={{ ...state, login, logout }}>
       {children}
     </UserContext.Provider>
   );

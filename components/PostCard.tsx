@@ -2,9 +2,9 @@ import { Post } from "../interface/post";
 import { usePostsContext } from "../context/posts/PostsContext";
 import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
-import Modal from "./Modal";
+import Modal from "./common/Modal";
 import Link from "next/link";
-import Error from "./Error";
+import Error from "./common/Error";
 import toast from "react-hot-toast";
 
 export default function PostCard({ post }: { post: Post }) {

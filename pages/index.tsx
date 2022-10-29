@@ -1,20 +1,23 @@
-import Layout from "../components/Layout";
+import Layout from "../components/layouts/Layout";
 import PostList from "../components/PostList";
-import Error from "../components/Error";
-import Loading from "../components/Loading";
+import Error from "../components/common/Error";
+import Loading from "../components/common/Loading";
 import { useState, useEffect } from "react";
-import NotFound from "../components/NotFound";
+import NotFound from "../components/common/NotFound";
 import SearchPosts from "../components/SearchPosts";
 import { Post } from "../interface/post";
 import { usePostsContext } from "../context/posts/PostsContext";
 import SelectUser from "../components/SelectUser";
 import { useUserContext } from "../context/user/UserContext";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Home() {
+  const { t } = useTranslation("common");
   const { loading, error, posts } = usePostsContext();
   const { user } = useUserContext();
-  console.log(user);
 
   const [client, setClient] = useState(false);
 
@@ -27,12 +30,10 @@ export default function Home() {
     setSearchTerm(e.target.value);
   };
 
-  useEffect(() => {
-    if (user) {
-      toast.success(`Welcome ${user?.name}!`);
-      return;
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   toast.success(`Welcome ${user?.name}!`);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // filter posts by search term and filter by user id
   useEffect(() => {
@@ -64,7 +65,7 @@ export default function Home() {
       <Layout>
         <div className="">
           <h1 className="text-center font-bold text-2xl text-green-600">
-            Posts
+            {t("posts")}
           </h1>
 
           <div className="flex justify-center mt-10 gap-10">
@@ -84,3 +85,11 @@ export default function Home() {
 }
 
 Home.auth = true;
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

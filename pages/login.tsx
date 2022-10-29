@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUserContext } from "../context/user/UserContext";
 
 export default function Login() {
   const router = useRouter();
-  const { login } = useUserContext();
+  const { login, user: userContext } = useUserContext();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -16,8 +16,9 @@ export default function Login() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     login({
       id: new Date().getTime(),
       auth: true,
@@ -25,8 +26,17 @@ export default function Login() {
       email: user.email,
       password: user.password,
     });
-    router.push("/");
+
+    router.reload();
   };
+
+  useEffect(() => {
+    if (userContext?.auth) {
+      router.push("/");
+    }
+  }, [userContext?.auth, router]);
+
+  if (userContext?.auth) return null;
 
   return (
     <div className="min-h-[80vh] grid place-content-center ">

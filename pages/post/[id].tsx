@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
 import { getPostById } from "../../lib/posts/getPostById";
 import { Post } from "../../interface/post";
-import Layout from "../../components/Layout";
+import Layout from "../../components/layouts/Layout";
 import { useUserContext } from "../../context/user/UserContext";
 
 export default function PostDetailsPage({ post }: { post: Post }) {
