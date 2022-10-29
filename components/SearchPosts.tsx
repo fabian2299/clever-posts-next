@@ -1,8 +1,3 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import usePosts from "../hooks/usePosts";
-import { usePostsContext } from "../context/posts/PostsContext";
-
 interface Props {
   searchTerm: string;
   handleChange: any;

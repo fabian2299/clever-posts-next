@@ -56,7 +56,7 @@ export default function Home() {
       <Layout>
         <div className="">
           <h1 className="text-center font-bold text-2xl text-green-600">
-            TODOS
+            Posts
           </h1>
 
           <div className="flex justify-center mt-10 gap-10">
