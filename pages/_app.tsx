@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import type { AppInitialProps, AppProps } from "next/app";
+import type { AppInitialProps } from "next/app";
 import PostsProvider from "../context/posts/PostsContext";
 import { Toaster } from "react-hot-toast";
 import UserProvider from "../context/user/UserContext";

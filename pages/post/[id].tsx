@@ -3,9 +3,13 @@ import { getAllPosts } from "../../lib/posts/getAllPosts";
 import { getPostById } from "../../lib/posts/getPostById";
 import { Post } from "../../interface/post";
 import Layout from "../../components/Layout";
+import { useUserContext } from "../../context/user/UserContext";
 
 export default function PostDetailsPage({ post }: { post: Post }) {
+  const { user } = useUserContext();
   const { title, completed, userId, id, body } = post;
+
+  if (!user) return null;
 
   return (
     <Layout>
@@ -16,6 +20,8 @@ export default function PostDetailsPage({ post }: { post: Post }) {
     </Layout>
   );
 }
+
+PostDetailsPage.auth = true;
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const data = await getAllPosts();

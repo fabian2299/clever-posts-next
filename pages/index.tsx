@@ -9,6 +9,7 @@ import { Post } from "../interface/post";
 import { usePostsContext } from "../context/posts/PostsContext";
 import SelectUser from "../components/SelectUser";
 import { useUserContext } from "../context/user/UserContext";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const { loading, error, posts } = usePostsContext();
@@ -25,6 +26,13 @@ export default function Home() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
+
+  useEffect(() => {
+    if (user) {
+      toast.success(`Welcome ${user?.name}!`);
+      return;
+    }
+  }, [user]);
 
   // filter posts by search term and filter by user id
   useEffect(() => {
