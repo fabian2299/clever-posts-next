@@ -24,11 +24,18 @@ export default function PostDetailsPage({ post }: { post: Post }) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await getAllPosts();
-  const paths = data.map((post) => ({
-    params: { id: post.id.toString() },
+  const pathsLocale1 = data.map((post) => ({
+    params: { id: post.id.toString(), locale: locales![0] },
   }));
+
+  const pathsLocale2 = data.map((post) => ({
+    params: { id: post.id.toString() },
+    locale: locales![1],
+  }));
+
+  const paths = [...pathsLocale1, ...pathsLocale2];
 
   return {
     paths,
