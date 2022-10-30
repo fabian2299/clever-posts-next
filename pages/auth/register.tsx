@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useUserContext } from "../context/user/UserProvider";
+import { useUserContext } from "../../context/user/UserProvider";
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
   const { login } = useUserContext();
 
   const [user, setUser] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -19,14 +20,12 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     login({
       id: new Date().getTime(),
-      name: "ADMIN",
+      name: user.name,
       email: user.email,
       password: user.password,
     });
-
     router.reload();
   };
 
@@ -36,6 +35,18 @@ export default function Login() {
         onSubmit={handleSubmit}
         className="border-2 p-10 flex flex-col gap-5 rounded-md shadow-md"
       >
+        <div className=" flex flex-col gap-5">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={user.name}
+            onChange={handleChange}
+            className="border-2 outline-none p-2 rounded-md"
+          />
+        </div>
+
         <div className=" flex flex-col gap-5">
           <label htmlFor="email">Email</label>
           <input
@@ -64,11 +75,11 @@ export default function Login() {
           type="submit"
           className=" px-4 py-2 bg-blue-600 w-fit text-white rounded-md mx-auto"
         >
-          Login
+          Register
         </button>
 
-        <Link href={"/register"} className="text-sm text-blue-500">
-          Not a member? Register
+        <Link href={"/login"} className="text-sm text-blue-500">
+          Have an account? Login
         </Link>
       </form>
     </div>

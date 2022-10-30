@@ -13,8 +13,11 @@ export const getAllPosts = async () => {
     return data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      throw new Error(" Error fetching posts: " + error.response?.data);
+      throw new Error(
+        "Error fetching posts: " + error.message + " please try again later"
+      );
+    } else {
+      return [];
     }
-    return [];
   }
 };

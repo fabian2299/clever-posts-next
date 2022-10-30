@@ -1,0 +1,42 @@
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+  
+body {
+    background-color: var(--dark-green);
+    font-family: var(--primary-font);
+    font-size: 1.6rem;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+[class$="contenedor"],
+.contenedor {
+    width: 95%;
+    max-width: 1536px;
+    margin: 0 auto;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+ul {
+    padding:0;
+    list-style: none;
+    margin: 0;
+}
+
+.seccion {
+    padding: 8rem 0;
+}

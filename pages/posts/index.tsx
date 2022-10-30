@@ -21,7 +21,7 @@ export default function Posts() {
   const [sortVal, setSortVal] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [filteredPosts, setFilteredPosts] = useState<Post[] | []>(posts);
+  const [filteredPosts, setFilteredPosts] = useState<Post[] | []>([...posts]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -39,11 +39,25 @@ export default function Posts() {
         return post.userId === Number(sortVal);
       });
 
-      filterByUserId.length > 0
-        ? setFilteredPosts(filterByUserId)
-        : setFilteredPosts([]);
+      setFilteredPosts(filterByUserId);
     }
   }, [searchTerm, sortVal, posts]);
+
+  const renderPosts = () => {
+    if (loading) return <Loading />;
+
+    if (error) {
+      return (
+        <div className="mt-10">
+          <Error error={error} />
+        </div>
+      );
+    }
+
+    if (filteredPosts.length === 0) return <NotFound />;
+
+    return <PostList posts={filteredPosts} />;
+  };
 
   return (
     !!isClient && (
@@ -53,16 +67,12 @@ export default function Posts() {
             {t("posts")}
           </h1>
 
-          <div className="flex justify-center mt-10 gap-10">
+          <div className="flex justify-center mt-10 gap-2 md:gap-10">
             <SearchPosts searchTerm={searchTerm} handleChange={handleChange} />
             <SelectUser sortVal={sortVal} setSortVal={setSortVal} />
           </div>
 
-          {error && !loading && <Error error={error} />}
-
-          {loading ? <Loading /> : <PostList posts={filteredPosts} />}
-
-          {filteredPosts?.length === 0 && <NotFound />}
+          {renderPosts()}
         </div>
       </Layout>
     )

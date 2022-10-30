@@ -1,18 +1,18 @@
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Link from "next/link";
 import Layout from "../components/layouts/Layout";
+import { useUserContext } from "../context/user/UserProvider";
 import useClient from "../hooks/useClient";
 
 export default function Home() {
   const { isClient } = useClient();
+  const { user } = useUserContext();
 
   return (
     !!isClient && (
       <Layout>
         <div>
-          <h1>Home</h1>
-          <Link href={"/posts"}>Posts</Link>
+          <h1>Welcome {user?.name}</h1>
         </div>
       </Layout>
     )

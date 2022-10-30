@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.includes("/login")) {
+  if (request.nextUrl.pathname.includes("/auth/login")) {
     const auth = request.cookies.get("auth");
 
     if (auth) {
@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (request.nextUrl.pathname.includes("/register")) {
+  if (request.nextUrl.pathname.includes("/auth/register")) {
     const auth = request.cookies.get("auth");
 
     if (auth) {
@@ -24,7 +24,7 @@ export function middleware(request: NextRequest) {
     const auth = request.cookies.get("auth");
 
     if (!auth) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/auth/login", request.url));
     }
     return NextResponse.next();
   }
@@ -33,7 +33,7 @@ export function middleware(request: NextRequest) {
     const auth = request.cookies.get("auth");
 
     if (!auth) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/auth/login", request.url));
     }
     return NextResponse.next();
   }

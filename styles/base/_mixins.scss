@@ -1,0 +1,49 @@
+
+/** Media Queries **/
+@mixin tablet {
+    @media (min-width: 960px) {
+        @content;
+    }
+}
+  
+@mixin desktop {
+    @media (min-width: 1248px) {
+        @content;
+    }
+}
+
+@mixin btn($bgColor, $textColor) {
+    background-color: $bgColor;
+    padding: 2rem 2rem;
+    color: $textColor;
+    margin-top: 2rem;
+    font-size: 2.2rem;
+    font-weight: 400;
+    display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    transition: background-color;
+    transition-duration: 300ms;
+
+    @include tablet {
+        width: auto;
+    }
+    &:hover {
+        background-color: darken($bgColor, 10%);
+    }
+}
+
+@mixin grid($columns, $gap) {
+    display: grid;
+    gap: $gap;
+    align-items: center;
+    grid-template-columns: repeat($columns, 1fr);
+}
+
+@mixin heading {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 400;
+    font-size: 4rem;
+}

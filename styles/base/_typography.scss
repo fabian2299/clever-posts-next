@@ -1,0 +1,38 @@
+@use './mixins' as m;
+
+h1, h2, h3 {
+    margin: 0;
+    line-height: 1.5;
+    font-family: var(--primary-font);
+    color:var(--light-gray) ;
+}
+
+@media (min-width: 960px) {
+    :root{ 
+        --h1: 4rem;
+        --h2: 4rem;
+        --h3: 3rem;
+        --p: 2.4rem;
+    }
+}
+
+
+h1 {
+    font-size: var(--h1)
+}
+h2 {
+    font-size: var(--h2)
+}
+h3 {
+    font-size: var(--h3)
+}
+
+p {
+    font-size: var(--p);
+    font-family: var(--secondary-font);
+    color: var(--light-green);
+}
+
+[class$="heading"] {
+    margin: 2rem 0;
+}

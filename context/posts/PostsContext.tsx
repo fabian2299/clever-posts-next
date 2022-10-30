@@ -7,7 +7,6 @@ import {
 } from "react";
 import { Post } from "../../interface/post";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
-import { useUserContext } from "../user/UserProvider";
 import { postsReducer } from "./postsReducer";
 
 interface PostsContextProps {
@@ -37,7 +36,6 @@ export default function PostsProvider({
   children: React.ReactNode;
 }) {
   const [state, dispatch] = useReducer(postsReducer, initialState);
-  const { isAuth } = useUserContext();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -65,31 +63,30 @@ export default function PostsProvider({
   };
 
   useEffect(() => {
-    if (state.posts.length === 0) {
-      const getPosts = async () => {
-        setLoading(true);
-        try {
-          const data = await getAllPosts();
-          localStorage.setItem("posts", JSON.stringify(data));
-          console.log("fetched posts");
-          dispatch({
-            type: "GET_POSTS",
-            payload: { posts: data },
-          });
+    const getPosts = async () => {
+      setLoading(true);
+      try {
+        const data = await getAllPosts();
+        localStorage.setItem("posts", JSON.stringify(data));
+        console.log("fetched posts");
+        dispatch({
+          type: "GET_POSTS",
+          payload: { posts: data },
+        });
 
-          return;
-        } catch (error: unknown) {
-          if (error instanceof Error) {
-            setError(error.message);
-          }
+        return;
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
           setError("Something went wrong");
-        } finally {
-          setLoading(false);
         }
-      };
-      getPosts();
-    }
-  }, [state.posts]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getPosts();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(state.posts));

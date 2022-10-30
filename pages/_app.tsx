@@ -1,9 +1,11 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import PostsProvider from "../context/posts/PostsContext";
-import { Toaster } from "react-hot-toast";
-import UserProvider from "../context/user/UserProvider";
+import "../styles/app.scss";
+
 import { appWithTranslation } from "next-i18next";
+import type { AppProps } from "next/app";
+import { Toaster } from "react-hot-toast";
+import PostsProvider from "../context/posts/PostsContext";
+import UserProvider from "../context/user/UserProvider";
 
 function App({ Component, pageProps }: AppProps) {
   return (

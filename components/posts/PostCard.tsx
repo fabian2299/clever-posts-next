@@ -1,11 +1,11 @@
-import { Post } from "../../interface/post";
-import { usePostsContext } from "../../context/posts/PostsContext";
-import Swal from "sweetalert2";
-import { useState, useEffect } from "react";
-import Modal from "../common/Modal";
 import Link from "next/link";
-import Error from "../common/Error";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import { usePostsContext } from "../../context/posts/PostsContext";
+import { Post } from "../../interface/post";
+import Error from "../common/Error";
+import Modal from "../common/Modal";
 
 export default function PostCard({ post }: { post: Post }) {
   const { deletePost, updatePost } = usePostsContext();
@@ -52,32 +52,29 @@ export default function PostCard({ post }: { post: Post }) {
 
   return (
     <>
-      <div className="flex flex-col gap-4 rounded-md border-2 hover:scale-110 p-4 text-center">
-        <p>user: {userId}</p>
+      <div className="post">
+        <p className="post__user">user: {userId}</p>
 
-        <h2>{title}</h2>
+        <h2 className="post__title">{title}</h2>
 
-        <p>{body}</p>
+        <p className="post__body">{body}</p>
 
-        <div className="flex gap-4">
+        <div className="post__buttons">
           <button
-            className=" bg-blue-700 text-white py-2 px-4 rounded-md w-fit mx-auto"
+            className="post__buttons--update"
             onClick={() => setOpen(true)}
           >
             Edit Post
           </button>
 
-          <button
-            className=" bg-red-700 text-white py-2 px-4 rounded-md w-fit mx-auto"
-            onClick={handleDelete}
-          >
+          <button className="post__buttons--delete" onClick={handleDelete}>
             Delete Post
           </button>
         </div>
 
         <Link
           href={`/post/${id}`}
-          className=" bg-green-700 text-white py-2 px-4 rounded-md w-full"
+          className=" bg-green-700 text-white py-2 px-4 rounded-md w-full post__link"
         >
           See Post
         </Link>
