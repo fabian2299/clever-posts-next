@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { useUserContext } from "../context/user/UserContext";
+import { useUserContext } from "../context/user/UserProvider";
+import { GetServerSideProps } from "next";
+import { getCookie, setCookie } from "cookies-next";
 
 export default function Login() {
   const router = useRouter();
-  const { login, user: userContext } = useUserContext();
+  const { login } = useUserContext();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -16,27 +19,18 @@ export default function Login() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     login({
       id: new Date().getTime(),
-      auth: true,
-      name: "John Doe",
+      name: "ADMIN",
       email: user.email,
       password: user.password,
     });
 
-    router.reload();
+    router.push("/");
   };
-
-  useEffect(() => {
-    if (userContext?.auth) {
-      router.push("/");
-    }
-  }, [userContext?.auth, router]);
-
-  if (userContext?.auth) return null;
 
   return (
     <div className="min-h-[80vh] grid place-content-center ">
@@ -82,3 +76,20 @@ export default function Login() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const auth = getCookie("auth", { req, res });
+
+  if (auth) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

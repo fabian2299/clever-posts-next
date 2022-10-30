@@ -1,30 +1,22 @@
-import { UserState, initialState } from "./UserContext";
+import { UserState, initialState } from "./UserProvider";
 import { User } from "../../interface/user";
+import { setCookie } from "cookies-next";
 
 type UserActionTypes =
-  | { type: "LOGIN"; payload: { user: User } }
-  | { type: "LOGOUT"; payload: { user: User } }
+  | { type: "GET_USER"; payload: { user: User; isAuth: boolean } }
+  | { type: "LOGOUT" }
+  | { type: "LOGIN"; payload: { user: User } };
 
 export const UserReducer = (
   state = initialState,
   action: UserActionTypes
 ): UserState => {
   switch (action.type) {
-    case "LOGIN":
+    case "GET_USER":
       return {
         ...state,
-        user: {
-          ...action.payload.user,
-          auth: true,
-        },
-      };
-    case "LOGOUT":
-      return {
-        ...state,
-        user: {
-          ...action.payload.user,
-          auth: false,
-        },
+        user: action.payload.user,
+        isAuth: action.payload.isAuth,
       };
     default:
       return state;

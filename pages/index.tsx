@@ -1,39 +1,34 @@
 import Layout from "../components/layouts/Layout";
-import PostList from "../components/PostList";
+import PostList from "../components/posts/PostList";
 import Error from "../components/common/Error";
 import Loading from "../components/common/Loading";
 import { useState, useEffect } from "react";
 import NotFound from "../components/common/NotFound";
-import SearchPosts from "../components/SearchPosts";
+import SearchPosts from "../components/search/SearchPosts";
 import { Post } from "../interface/post";
 import { usePostsContext } from "../context/posts/PostsContext";
-import SelectUser from "../components/SelectUser";
-import { useUserContext } from "../context/user/UserContext";
+import SelectUser from "../components/search/SelectUser";
+import { useUserContext } from "../context/user/UserProvider";
 import toast from "react-hot-toast";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetServerSideProps, GetStaticProps } from "next";
+import { getCookie } from "cookies-next";
 
 export default function Home() {
   const { t } = useTranslation("common");
   const { loading, error, posts } = usePostsContext();
-  const { user } = useUserContext();
 
   const [client, setClient] = useState(false);
 
   const [sortVal, setSortVal] = useState("");
-
   const [searchTerm, setSearchTerm] = useState("");
+
   const [filteredPosts, setFilteredPosts] = useState<Post[] | []>(posts);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-
-  // useEffect(() => {
-  //   toast.success(`Welcome ${user?.name}!`);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   // filter posts by search term and filter by user id
   useEffect(() => {
@@ -57,8 +52,6 @@ export default function Home() {
   useEffect(() => {
     setClient(true);
   }, []);
-
-  if (!user?.auth) return null;
 
   return (
     !!client && (
@@ -84,12 +77,25 @@ export default function Home() {
   );
 }
 
-Home.auth = true;
+export const getServerSideProps: GetServerSideProps = async ({
+  locale,
+  req,
+  res,
+}) => {
+  const auth = getCookie("auth", { req, res });
 
-export async function getStaticProps({ locale }: { locale: string }) {
+  if (!auth) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale!, ["common"])),
     },
   };
-}
+};

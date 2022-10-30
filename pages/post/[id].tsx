@@ -3,11 +3,20 @@ import { getAllPosts } from "../../lib/posts/getAllPosts";
 import { getPostById } from "../../lib/posts/getPostById";
 import { Post } from "../../interface/post";
 import Layout from "../../components/layouts/Layout";
-import { useUserContext } from "../../context/user/UserContext";
+import { useUserContext } from "../../context/user/UserProvider";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function PostDetailsPage({ post }: { post: Post }) {
+  const router = useRouter();
   const { user } = useUserContext();
-  const { title, completed, userId, id, body } = post;
+  const { title, userId, body } = post;
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user, router]);
 
   if (!user) return null;
 
@@ -15,13 +24,13 @@ export default function PostDetailsPage({ post }: { post: Post }) {
     <Layout>
       <div>
         <h1>Post Details</h1>
+        <p>User:{userId}</p>
+        <p>{title}</p>
         <p>{body}</p>
       </div>
     </Layout>
   );
 }
-
-PostDetailsPage.auth = true;
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const data = await getAllPosts();

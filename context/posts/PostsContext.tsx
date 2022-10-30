@@ -3,6 +3,8 @@ import { useContext, useReducer } from "react";
 import { Post } from "../../interface/post";
 import { postsReducer } from "./postsReducer";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
+import { userAgent } from "next/server";
+import { useUserContext } from "../user/UserProvider";
 
 interface PostsContextProps {
   posts: Post[];
@@ -31,6 +33,7 @@ export default function PostsProvider({
   children: React.ReactNode;
 }) {
   const [state, dispatch] = useReducer(postsReducer, initialState);
+  const { isAuth } = useUserContext();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -50,6 +53,8 @@ export default function PostsProvider({
   };
 
   useEffect(() => {
+    if (!isAuth) return;
+
     const getPosts = async () => {
       setLoading(true);
       try {
@@ -69,7 +74,7 @@ export default function PostsProvider({
       }
     };
     getPosts();
-  }, []);
+  }, [isAuth]);
 
   return (
     <PostsContext.Provider

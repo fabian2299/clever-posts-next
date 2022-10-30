@@ -1,13 +1,14 @@
 import React from "react";
 import Link from "next/link";
-import { useUserContext } from "../../context/user/UserContext";
+import { useUserContext } from "../../context/user/UserProvider";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import { getCookie } from "cookies-next";
 
 export default function Header() {
-  const { t } = useTranslation("common");
-  const { user, logout } = useUserContext();
   const router = useRouter();
+  const { t } = useTranslation("common");
+  const { logout, isAuth, user } = useUserContext();
 
   const changeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const locale = e.target.value;
@@ -15,10 +16,7 @@ export default function Header() {
   };
 
   const handleLogout = async () => {
-    if (!user) return;
-
-    logout(user);
-
+    logout();
     router.reload();
   };
 
@@ -33,13 +31,19 @@ export default function Header() {
           </nav>
 
           <div className="flex gap-5">
-            {!user?.auth && (
+            {!isAuth && (
               <Link href="/login" className=" font-bold text-2xl">
                 {t("login")}
               </Link>
             )}
 
-            {user?.auth && <button onClick={handleLogout}>Log Out</button>}
+            {isAuth && (
+              <>
+                <p>{user?.name}</p>
+                <button onClick={handleLogout}>Log Out</button>
+              </>
+            )}
+
             <select
               name="lang"
               id="lang"

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import PostCard from "./PostCard";
-import { Post } from "../interface/post";
+import { Post } from "../../interface/post";
 
 export default function PostList({ posts }: { posts: Post[] }) {
   return (

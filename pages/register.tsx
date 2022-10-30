@@ -1,6 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link";
+import { useUserContext } from "../context/user/UserProvider";
+import { useRouter } from "next/router";
+import { getCookie } from "cookies-next";
+import { GetServerSideProps } from "next";
 export default function Register() {
+  const router = useRouter();
+  const { login } = useUserContext();
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -14,8 +21,13 @@ export default function Register() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
-    console.log(user);
+    login({
+      id: new Date().getTime(),
+      name: user.name,
+      email: user.email,
+      password: user.password,
+    });
+    router.push("/");
   };
 
   return (
@@ -74,3 +86,20 @@ export default function Register() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const auth = getCookie("auth", { req, res });
+
+  if (auth) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
