@@ -11,7 +11,15 @@ export default function Header() {
 
   const changeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const locale = e.target.value;
-    router.push(router.pathname, router.pathname, { locale });
+
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query },
+      },
+      router.asPath,
+      { locale }
+    );
   };
 
   const handleLogout = async () => {
