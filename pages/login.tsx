@@ -27,7 +27,7 @@ export default function Login() {
       password: user.password,
     });
 
-    router.push("/posts");
+    router.reload();
   };
 
   return (

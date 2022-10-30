@@ -26,7 +26,7 @@ export default function Register() {
       email: user.email,
       password: user.password,
     });
-    router.push("/");
+    router.reload();
   };
 
   return (

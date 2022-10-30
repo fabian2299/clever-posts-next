@@ -1,8 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Layout from "../../components/layouts/Layout";
+import { Post } from "../../interface/post";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
 import { getPostById } from "../../lib/posts/getPostById";
-import { Post } from "../../interface/post";
-import Layout from "../../components/layouts/Layout";
 
 export default function PostDetailsPage({ post }: { post: Post }) {
   const { title, userId, body } = post;
@@ -31,12 +32,13 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   const { id } = params as { id: string };
   const data = await getPostById(id);
 
   return {
     props: {
+      ...(await serverSideTranslations(locale!, ["common"])),
       post: data,
     },
     revalidate: 60,

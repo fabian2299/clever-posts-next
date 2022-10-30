@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
     const auth = request.cookies.get("auth");
 
     if (auth) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL("/posts", request.url));
     }
     return NextResponse.next();
   }
@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
     const auth = request.cookies.get("auth");
 
     if (auth) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL("/posts", request.url));
     }
     return NextResponse.next();
   }
