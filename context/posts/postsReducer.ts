@@ -1,10 +1,10 @@
-import { initialState, PostsState } from "./PostsContext";
 import { Post } from "../../interface/post";
+import { initialState, PostsState } from "./PostsContext";
 
 type PostsActionTypes =
-  | { type: "DELETE_POST"; payload: { id: number } }
+  | { type: "DELETE_POST"; payload: { posts: Post[] } }
   | { type: "GET_POSTS"; payload: { posts: Post[] } }
-  | { type: "UPDATE_POST"; payload: { id: number; body: string } };
+  | { type: "UPDATE_POST"; payload: { posts: Post[] } };
 
 export const postsReducer = (
   state = initialState,
@@ -12,25 +12,11 @@ export const postsReducer = (
 ): PostsState => {
   switch (action.type) {
     case "GET_POSTS":
-      return {
-        ...state,
-        posts: action.payload.posts,
-      };
-
+    case "DELETE_POST":
     case "UPDATE_POST":
       return {
         ...state,
-        posts: state.posts.map((post) =>
-          post.id === action.payload.id
-            ? { ...post, body: action.payload.body }
-            : post
-        ),
-      };
-
-    case "DELETE_POST":
-      return {
-        ...state,
-        posts: state.posts.filter((post) => post.id !== action.payload.id),
+        posts: [...action.payload.posts],
       };
     default:
       return state;

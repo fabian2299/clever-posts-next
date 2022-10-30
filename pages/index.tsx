@@ -1,18 +1,14 @@
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import Layout from "../components/layouts/Layout";
+import useClient from "../hooks/useClient";
 
 export default function Home() {
-  const [client, setClient] = useState(false);
-
-  useEffect(() => {
-    setClient(true);
-  }, []);
+  const { isClient } = useClient();
 
   return (
-    !!client && (
+    !!isClient && (
       <Layout>
         <div>
           <h1>Home</h1>

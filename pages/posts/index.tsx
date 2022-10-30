@@ -10,13 +10,13 @@ import PostList from "../../components/posts/PostList";
 import SearchPosts from "../../components/search/SearchPosts";
 import SelectUser from "../../components/search/SelectUser";
 import { usePostsContext } from "../../context/posts/PostsContext";
+import useClient from "../../hooks/useClient";
 import { Post } from "../../interface/post";
 
 export default function Posts() {
   const { t } = useTranslation("common");
   const { loading, error, posts } = usePostsContext();
-
-  const [client, setClient] = useState(false);
+  const { isClient } = useClient();
 
   const [sortVal, setSortVal] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,13 +45,8 @@ export default function Posts() {
     }
   }, [searchTerm, sortVal, posts]);
 
-  // This is a hack to make sure that the client is mounted before rendering
-  useEffect(() => {
-    setClient(true);
-  }, []);
-
   return (
-    !!client && (
+    !!isClient && (
       <Layout>
         <div className="">
           <h1 className="text-center font-bold text-2xl text-green-600">

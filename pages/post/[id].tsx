@@ -1,22 +1,26 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Layout from "../../components/layouts/Layout";
+import useClient from "../../hooks/useClient";
 import { Post } from "../../interface/post";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
 import { getPostById } from "../../lib/posts/getPostById";
 
 export default function PostDetailsPage({ post }: { post: Post }) {
   const { title, userId, body } = post;
+  const { isClient } = useClient();
 
   return (
-    <Layout>
-      <div>
-        <h1>Post Details</h1>
-        <p>User:{userId}</p>
-        <p>{title}</p>
-        <p>{body}</p>
-      </div>
-    </Layout>
+    !!isClient && (
+      <Layout>
+        <div>
+          <h1>Post Details</h1>
+          <p>User:{userId}</p>
+          <p>{title}</p>
+          <p>{body}</p>
+        </div>
+      </Layout>
+    )
   );
 }
 

@@ -43,44 +43,56 @@ export default function PostsProvider({
   const [error, setError] = useState("");
 
   const deletePost = (id: number) => {
+    const newPosts = state.posts.filter((post) => post.id !== id);
     dispatch({
       type: "DELETE_POST",
-      payload: { id },
+      payload: { posts: newPosts },
     });
   };
 
   const updatePost = ({ id, body }: { id: number; body: string }) => {
+    const updatedPosts = state.posts.map((post) => {
+      if (post.id === id) {
+        return { ...post, body };
+      }
+      return post;
+    });
+
     dispatch({
       type: "UPDATE_POST",
-      payload: { id, body },
+      payload: { posts: updatedPosts },
     });
   };
 
   useEffect(() => {
-    if (state.posts.length > 0) return;
+    if (state.posts.length === 0) {
+      const getPosts = async () => {
+        setLoading(true);
+        try {
+          const data = await getAllPosts();
+          localStorage.setItem("posts", JSON.stringify(data));
+          console.log("fetched posts");
+          dispatch({
+            type: "GET_POSTS",
+            payload: { posts: data },
+          });
 
-    const getPosts = async () => {
-      setLoading(true);
-      try {
-        const data = await getAllPosts();
-        localStorage.setItem("posts", JSON.stringify(data));
-        console.log("fetched posts");
-        dispatch({
-          type: "GET_POSTS",
-          payload: { posts: data },
-        });
-
-        return;
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setError(error.message);
+          return;
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            setError(error.message);
+          }
+          setError("Something went wrong");
+        } finally {
+          setLoading(false);
         }
-        setError("Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
-    getPosts();
+      };
+      getPosts();
+    }
+  }, [state.posts]);
+
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(state.posts));
   }, [state.posts]);
 
   return (
