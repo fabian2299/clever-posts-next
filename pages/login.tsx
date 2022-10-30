@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { useState } from "react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useUserContext } from "../context/user/UserProvider";
-import { GetServerSideProps } from "next";
-import { getCookie, setCookie } from "cookies-next";
 
 export default function Login() {
   const router = useRouter();
@@ -29,7 +27,7 @@ export default function Login() {
       password: user.password,
     });
 
-    router.push("/");
+    router.push("/posts");
   };
 
   return (
@@ -76,20 +74,3 @@ export default function Login() {
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const auth = getCookie("auth", { req, res });
-
-  if (auth) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};

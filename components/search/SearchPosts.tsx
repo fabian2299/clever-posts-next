@@ -1,6 +1,6 @@
 interface Props {
   searchTerm: string;
-  handleChange: any;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function SearchPosts({ searchTerm, handleChange }: Props) {

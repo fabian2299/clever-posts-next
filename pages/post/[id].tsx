@@ -3,22 +3,9 @@ import { getAllPosts } from "../../lib/posts/getAllPosts";
 import { getPostById } from "../../lib/posts/getPostById";
 import { Post } from "../../interface/post";
 import Layout from "../../components/layouts/Layout";
-import { useUserContext } from "../../context/user/UserProvider";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 
 export default function PostDetailsPage({ post }: { post: Post }) {
-  const router = useRouter();
-  const { user } = useUserContext();
   const { title, userId, body } = post;
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user, router]);
-
-  if (!user) return null;
 
   return (
     <Layout>

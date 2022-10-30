@@ -1,9 +1,8 @@
-import React from "react";
-import Link from "next/link";
-import { useUserContext } from "../../context/user/UserProvider";
 import { useTranslation } from "next-i18next";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { getCookie } from "cookies-next";
+import React from "react";
+import { useUserContext } from "../../context/user/UserProvider";
 
 export default function Header() {
   const router = useRouter();
@@ -25,8 +24,12 @@ export default function Header() {
       <div className="container mx-auto">
         <section className="flex gap-5 items-center">
           <nav className=" flex justify-center gap-5 flex-1">
-            <Link href="/" className=" font-bold text-2xl">
+            <Link href="/" className=" font-bold text-2xl uppercase">
               {t("home")}
+            </Link>
+
+            <Link href="/posts" className=" font-bold text-2xl uppercase">
+              Posts
             </Link>
           </nav>
 

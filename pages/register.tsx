@@ -1,9 +1,8 @@
-import { useState, useContext } from "react";
 import Link from "next/link";
-import { useUserContext } from "../context/user/UserProvider";
 import { useRouter } from "next/router";
-import { getCookie } from "cookies-next";
-import { GetServerSideProps } from "next";
+import { useState } from "react";
+import { useUserContext } from "../context/user/UserProvider";
+
 export default function Register() {
   const router = useRouter();
   const { login } = useUserContext();
@@ -86,20 +85,3 @@ export default function Register() {
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const auth = getCookie("auth", { req, res });
-
-  if (auth) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};

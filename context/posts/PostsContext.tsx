@@ -1,10 +1,14 @@
-import { createContext, useState, useEffect } from "react";
-import { useContext, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { Post } from "../../interface/post";
-import { postsReducer } from "./postsReducer";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
-import { userAgent } from "next/server";
 import { useUserContext } from "../user/UserProvider";
+import { postsReducer } from "./postsReducer";
 
 interface PostsContextProps {
   posts: Post[];
@@ -53,7 +57,7 @@ export default function PostsProvider({
   };
 
   useEffect(() => {
-    if (!isAuth) return;
+    if (state.posts.length > 0) return;
 
     const getPosts = async () => {
       setLoading(true);
@@ -67,14 +71,17 @@ export default function PostsProvider({
         });
 
         return;
-      } catch (error: any) {
-        setError(error.message);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setError(error.message);
+        }
+        setError("Something went wrong");
       } finally {
         setLoading(false);
       }
     };
     getPosts();
-  }, [isAuth]);
+  }, [state.posts]);
 
   return (
     <PostsContext.Provider

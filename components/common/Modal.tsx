@@ -8,7 +8,7 @@ const modalContainer =
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: any;
+  onClose: () => void;
   children?: ReactNode;
 }
 

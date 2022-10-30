@@ -11,7 +11,10 @@ export const getAllPosts = async () => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     return data;
-  } catch (error: any) {
-    throw new Error(`Error fetching posts: ${error.message}`);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(" Error fetching posts: " + error.response?.data);
+    }
+    return [];
   }
 };
