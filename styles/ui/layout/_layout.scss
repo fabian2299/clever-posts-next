@@ -8,11 +8,11 @@
   width: 100%;
 
   @include m.tablet {
-    max-width: 1248px
+    max-width: 768px
   }
 
   @include m.desktop {
-    max-width: 1536px
+    max-width: 1280px
   }
 
 }

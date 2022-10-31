@@ -31,12 +31,11 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-40 grid min-h-full place-content-center bg-gray-400/60 ">
-      <div
-        className="flex max-w-xs flex-col justify-between rounded-lg border bg-gray-100 p-8 text-lg"
-        ref={modalRef}
-      >
-        {children}
+    <div className="modal" >
+      <div ref={modalRef}>
+
+      {children}
+
       </div>
     </div>,
     modalContainer!

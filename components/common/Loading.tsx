@@ -1,14 +1,14 @@
 export default function Loading() {
   return (
-    <div className="flex justify-center items-center mt-10">
+    <div className="loading">
       <svg
-        className="animate-spin -ml-1 mr-3 h-8 w-8 text-green-600"
+        className="loading__svg" 
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
       >
         <circle
-          className="opacity-25"
+          className="loading__circle"
           cx="12"
           cy="12"
           r="10"
@@ -16,12 +16,13 @@ export default function Loading() {
           strokeWidth="4"
         ></circle>
         <path
-          className="opacity-75"
+          className="loading__path"
           fill="currentColor"
           d="M4 12a8 8 0 018-8v8z"
         ></path>
       </svg>
-      <p className="text-green-600 text-xl">Loading...</p>
+
+      <p>Loading...</p>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { AiFillEdit } from 'react-icons/ai';
+import { MdDelete } from 'react-icons/md';
 import Swal from "sweetalert2";
 import { usePostsContext } from "../../context/posts/PostsContext";
 import { Post } from "../../interface/post";
@@ -64,11 +66,17 @@ export default function PostCard({ post }: { post: Post }) {
             className="post__buttons--update"
             onClick={() => setOpen(true)}
           >
-            Edit Post
+            <div>
+              Edit
+              <AiFillEdit />
+            </div>
           </button>
 
           <button className="post__buttons--delete" onClick={handleDelete}>
-            Delete Post
+            <div>
+            Delete  
+            <MdDelete />
+            </div>
           </button>
 
           <Link href={`/post/${id}`} className="post__buttons--link">
@@ -78,12 +86,12 @@ export default function PostCard({ post }: { post: Post }) {
       </div>
 
       <Modal isOpen={open} onClose={() => setOpen(false)}>
-        <div className="flex flex-col gap-10">
+        <div className="edit-modal">
           <button
-            className="rounded-md bg-red-600 py-2 px-4 text-white w-fit self-end"
+            className="edit-modal__close"
             onClick={() => setOpen(false)}
           >
-            Close
+            close
           </button>
 
           {error && <Error error={error} />}
@@ -91,18 +99,19 @@ export default function PostCard({ post }: { post: Post }) {
           <textarea
             name="content"
             id="content"
-            cols={30}
-            rows={10}
+            className="edit-modal__textarea"
             value={newBody}
             onChange={(e) => setNewBody(e.target.value)}
+            placeholder="Enter new content"
           />
 
           <button
-            className="rounded-md bg-green-600 py-3 px-2 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="edit-modal__update"
             onClick={handleUpdate}
             disabled={!!error}
+
           >
-            Update Post
+            Update 
           </button>
         </div>
       </Modal>

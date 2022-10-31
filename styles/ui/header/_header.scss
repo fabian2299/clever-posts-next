@@ -2,7 +2,8 @@
 
 .container {
   margin-inline: auto;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1280px;
   display: none;
 
   @include m.tablet {

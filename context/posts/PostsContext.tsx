@@ -3,7 +3,7 @@ import {
   useContext,
   useEffect,
   useReducer,
-  useState,
+  useState
 } from "react";
 import { Post } from "../../interface/post";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
@@ -24,10 +24,7 @@ export interface PostsState {
 }
 
 export const initialState: PostsState = {
-  posts:
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("posts")!)
-      : [],
+  posts: typeof window !== "undefined" && JSON.parse(localStorage.getItem("posts") ?? "[]"),
 };
 
 export default function PostsProvider({

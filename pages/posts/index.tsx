@@ -21,7 +21,7 @@ export default function Posts() {
   const [sortVal, setSortVal] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [filteredPosts, setFilteredPosts] = useState<Post[] | []>([...posts]);
+  const [filteredPosts, setFilteredPosts] = useState<Post[] | []>(() => posts ?? []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -46,15 +46,9 @@ export default function Posts() {
   const renderPosts = () => {
     if (loading) return <Loading />;
 
-    if (error) {
-      return (
-        <div className="mt-10">
-          <Error error={error} />
-        </div>
-      );
-    }
+    if (error) return <Error error={error} />;
 
-    if (filteredPosts.length === 0) return <NotFound />;
+    if (filteredPosts.length === 0) return <NotFound searchTerm={searchTerm} />;
 
     return <PostList posts={filteredPosts} />;
   };

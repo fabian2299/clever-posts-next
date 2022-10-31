@@ -1,23 +1,22 @@
 
 /** Media Queries **/
 @mixin tablet {
-    @media (min-width: 960px) {
+    @media (min-width: 768px) {
         @content;
     }
 }
   
 @mixin desktop {
-    @media (min-width: 1248px) {
+    @media (min-width: 1280px) {
         @content;
     }
 }
 
 @mixin btn($bgColor, $textColor) {
     background-color: $bgColor;
-    padding: 2rem 2rem;
     color: $textColor;
-    margin-top: 2rem;
-    font-size: 2rem;
+    padding: 1.4rem; 
+    font-size: 1.4rem;
     display: inline-block;
     font-weight: 700;
     text-align: center;
@@ -28,7 +27,10 @@
 
     @include tablet {
         width: auto;
+        padding: 1.8rem;
+        font-size: 1.8rem;
     }
+
     &:hover {
         background-color: darken($bgColor, 10%);
     }
