@@ -31,12 +31,8 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="modal" >
-      <div ref={modalRef}>
-
-      {children}
-
-      </div>
+    <div className="modal">
+      <div ref={modalRef}>{children}</div>
     </div>,
     modalContainer!
   );

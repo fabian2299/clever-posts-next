@@ -1,14 +1,17 @@
+import Layout from "@/components/layouts/Layout";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useUserContext } from "../../context/user/UserProvider";
+import treeImg from "../../public/assets/tree.jpg";
 
-export default function Register() {
+export default function Login() {
   const router = useRouter();
   const { login } = useUserContext();
 
   const [user, setUser] = useState({
-    name: "",
+    name: '',
     email: "",
     password: "",
   });
@@ -20,68 +23,85 @@ export default function Register() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     login({
       id: new Date().getTime(),
       name: user.name,
       email: user.email,
       password: user.password,
     });
-    router.reload();
+
+    router.push("/posts");
   };
 
   return (
-    <div className="min-h-[80vh] grid place-content-center ">
-      <form
-        onSubmit={handleSubmit}
-        className="border-2 p-10 flex flex-col gap-5 rounded-md shadow-md"
-      >
-        <div className=" flex flex-col gap-5">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={user.name}
-            onChange={handleChange}
-            className="border-2 outline-none p-2 rounded-md"
+    <Layout>
+      <div className="login">
+        <h1 className="login__heading">
+          Welcome to <span>TreePost</span>
+        </h1>
+
+        <div className="login__group">
+          <Image
+            src={treeImg}
+            placeholder="blur"
+            className="login__img"
+            alt="login image"
           />
+
+          <form onSubmit={handleSubmit} className="form">
+              <div className="form__group">
+              <label htmlFor="name" className="form__label">
+                Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={user.name}
+                onChange={handleChange}
+                className="form__input"
+              />
+            </div>
+
+            <div className="form__group">
+              <label htmlFor="email" className="form__label">
+                Email
+              </label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                value={user.email}
+                onChange={handleChange}
+                className="form__input"
+              />
+            </div>
+
+            <div className="form__group">
+              <label className="form__label" htmlFor="password">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={user.password}
+                onChange={handleChange}
+                className="form__input"
+              />
+            </div>
+
+            <button type="submit" className="form__button">
+              Login
+            </button>
+
+            <Link href={"/auth/login"} className="form__link">
+              Already have an account? Log in
+            </Link>
+          </form>
         </div>
-
-        <div className=" flex flex-col gap-5">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            value={user.email}
-            onChange={handleChange}
-            className="border-2 outline-none p-2 rounded-md"
-          />
-        </div>
-
-        <div className=" flex flex-col gap-5">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={user.password}
-            onChange={handleChange}
-            className="border-2 outline-none p-2 rounded-md"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className=" px-4 py-2 bg-blue-600 w-fit text-white rounded-md mx-auto"
-        >
-          Register
-        </button>
-
-        <Link href={"/login"} className="text-sm text-blue-500">
-          Have an account? Login
-        </Link>
-      </form>
-    </div>
+      </div>
+    </Layout>
   );
 }

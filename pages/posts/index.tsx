@@ -21,7 +21,9 @@ export default function Posts() {
   const [sortVal, setSortVal] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [filteredPosts, setFilteredPosts] = useState<Post[] | []>(() => posts ?? []);
+  const [filteredPosts, setFilteredPosts] = useState<Post[] | []>(
+    () => posts ?? []
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);

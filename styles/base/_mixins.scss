@@ -1,51 +1,50 @@
-
 /** Media Queries **/
 @mixin tablet {
-    @media (min-width: 768px) {
-        @content;
-    }
+  @media (min-width: 768px) {
+    @content;
+  }
 }
-  
+
 @mixin desktop {
-    @media (min-width: 1280px) {
-        @content;
-    }
+  @media (min-width: 1280px) {
+    @content;
+  }
 }
 
 @mixin btn($bgColor, $textColor) {
-    background-color: $bgColor;
-    color: $textColor;
-    padding: 1.4rem; 
-    font-size: 1.4rem;
-    display: inline-block;
-    font-weight: 700;
-    text-align: center;
-    text-transform: uppercase;
-    transition: background-color;
-    transition-duration: 300ms;
-    border-radius: 15px;
+  background-color: $bgColor;
+  color: $textColor;
+  padding: 1.4rem;
+  font-size: 1.4rem;
+  display: inline-block;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background-color;
+  transition-duration: 300ms;
+  border-radius: 15px;
 
-    @include tablet {
-        width: auto;
-        padding: 1.8rem;
-        font-size: 1.8rem;
-    }
+  @include tablet {
+    width: auto;
+    padding: 1.8rem;
+    font-size: 1.8rem;
+  }
 
-    &:hover {
-        background-color: darken($bgColor, 10%);
-    }
+  &:hover {
+    background-color: darken($bgColor, 10%);
+  }
 }
 
 @mixin grid($columns, $gap) {
-    display: grid;
-    gap: $gap;
-    align-items: center;
-    grid-template-columns: repeat($columns, 1fr);
+  display: grid;
+  gap: $gap;
+  align-items: center;
+  grid-template-columns: repeat($columns, 1fr);
 }
 
 @mixin heading {
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: 400;
-    font-size: 5rem;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 400;
+  font-size: 5rem;
 }

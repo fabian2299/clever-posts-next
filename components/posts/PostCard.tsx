@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { AiFillEdit } from 'react-icons/ai';
-import { MdDelete } from 'react-icons/md';
+import { AiFillEdit } from "react-icons/ai";
+import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import { usePostsContext } from "../../context/posts/PostsContext";
 import { Post } from "../../interface/post";
@@ -74,8 +74,8 @@ export default function PostCard({ post }: { post: Post }) {
 
           <button className="post__buttons--delete" onClick={handleDelete}>
             <div>
-            Delete  
-            <MdDelete />
+              Delete
+              <MdDelete />
             </div>
           </button>
 
@@ -87,10 +87,7 @@ export default function PostCard({ post }: { post: Post }) {
 
       <Modal isOpen={open} onClose={() => setOpen(false)}>
         <div className="edit-modal">
-          <button
-            className="edit-modal__close"
-            onClick={() => setOpen(false)}
-          >
+          <button className="edit-modal__close" onClick={() => setOpen(false)}>
             close
           </button>
 
@@ -109,9 +106,8 @@ export default function PostCard({ post }: { post: Post }) {
             className="edit-modal__update"
             onClick={handleUpdate}
             disabled={!!error}
-
           >
-            Update 
+            Update
           </button>
         </div>
       </Modal>

@@ -1,23 +1,23 @@
-@use '../../base/mixins' as m;
+@use "../../base/mixins" as m;
 
 .heading {
-    @include m.heading;
+  @include m.heading;
 }
 
 .posts {
   margin-top: 5rem;
 
-    &__grid {
-        @include m.grid(1, 5rem);
+  &__grid {
+    @include m.grid(1, 5rem);
 
-        @include m.tablet {
-            @include m.grid(2, 2rem);
-        }
-
-        @include m.desktop {
-            @include m.grid(3, 5rem);
-        }
+    @include m.tablet {
+      @include m.grid(2, 2rem);
     }
+
+    @include m.desktop {
+      @include m.grid(3, 5rem);
+    }
+  }
 }
 
 .post {
@@ -41,19 +41,18 @@
     transform: scale(1.04);
   }
 
-
   // &__user {}
 
   // &__title{}
 
-  &__body{
+  &__body {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  &__buttons{
+  &__buttons {
     display: grid;
     align-items: center;
     margin-inline: auto;
@@ -71,8 +70,7 @@
       width: 2.5rem;
       height: 2.5rem;
     }
-  
-  
+
     &--update {
       @include m.btn(#f1c40f, #001e1d);
     }
@@ -81,12 +79,11 @@
       @include m.btn(#e74c3c, #fff);
     }
 
-     &--link {
+    &--link {
       grid-column-start: 1;
       grid-column-end: 3;
       border: 1px solid var(--white);
       @include m.btn(#f5f5f5, #000);
-
     }
   }
 }
@@ -121,7 +118,6 @@
     @include m.tablet {
       width: 500px;
     }
-    
   }
 
   &__update {
@@ -132,5 +128,4 @@
       cursor: not-allowed;
     }
   }
-
 }

@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-export default function NotFound({searchTerm}: {searchTerm: string}) {
+export default function NotFound({ searchTerm }: { searchTerm: string }) {
   return (
     <div className="not-found  container">
       <h3>
-        No posts found for  <span>{searchTerm}</span>      
-        </h3>
+        No posts found for <span>{searchTerm}</span>
+      </h3>
 
       <p>Try searching with a different term or filter by a user.</p>
 

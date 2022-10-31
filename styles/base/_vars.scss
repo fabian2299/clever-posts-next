@@ -1,24 +1,23 @@
 :root {
-// Fonts
-  --primary-font: 'Roboto', sans-serif;
-  --secondary-font: 'Lato', sans-serif;
+  // Fonts
+  --primary-font: "Roboto", sans-serif;
+  --secondary-font: "Lato", sans-serif;
 
-// Fonts Size
+  // Fonts Size
   --h1: 3rem;
   --h2: 2.6rem;
   --h3: 2.4rem;
   --p: 2rem;
 
-// Colors
+  // Colors
   --yellow: #f9bc60; // buttons
   --darker-green: #001e1d; // text buttons
   --dark-green: #004643; // background
   --light-green: #abd1c6; // paragraphs
   --gray: #ccc; // borders
-  --dark-gray: #333;  
+  --dark-gray: #333;
   --light-gray: #fffffe; // headings
   --white: #fff;
   --black: #000;
   --light-red: #e16162;
-
 }

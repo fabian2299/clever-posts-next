@@ -8,6 +8,5 @@ describe("Posts", () => {
       <PostList posts={[{ id: 1, body: "hola", title: "titulo", userId: 2 }]} />
     );
     expect(screen.getByText("hola")).toBeInTheDocument();
-
   });
 });

@@ -1,4 +1,4 @@
-@use '../../base/mixins' as m;
+@use "../../base/mixins" as m;
 
 .main {
   overflow-x: hidden;
@@ -8,11 +8,10 @@
   width: 100%;
 
   @include m.tablet {
-    max-width: 768px
+    max-width: 768px;
   }
 
   @include m.desktop {
-    max-width: 1280px
+    max-width: 1280px;
   }
-
 }

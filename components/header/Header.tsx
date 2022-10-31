@@ -33,8 +33,7 @@ export default function Header() {
     <header className="header">
       <div className="container">
         <section className="nav">
-
-            <h2 className="nav__logo">LOGO</h2>
+          <h2 className="nav__logo">LOGO</h2>
 
           <nav className="nav__links">
             <Link href="/" className="nav__link">
@@ -56,7 +55,9 @@ export default function Header() {
             {isAuth && (
               <>
                 <p className="nav__username">{user?.name}</p>
-                <button className="nav__logout" onClick={handleLogout}>Log Out</button>
+                <button className="nav__logout" onClick={handleLogout}>
+                  Log Out
+                </button>
               </>
             )}
 
@@ -75,7 +76,7 @@ export default function Header() {
       </div>
 
       {/* Nav Mobile */}
-      <section className="block md:hidden">
+      {/* <section className="block md:hidden">
         <div className=" flex items-center">
           <button
             className="border-2 "
@@ -103,49 +104,49 @@ export default function Header() {
 
           {openSideMenu && <AsideMenu setOpenSideMenu={setOpenSideMenu} />}
         </div>
-      </section>
+      </section> */}
     </header>
   );
 }
 
-const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
-  const router = useRouter();
-  const { t } = useTranslation("common");
-  const { logout, isAuth } = useUserContext();
+// const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
+//   const router = useRouter();
+//   const { t } = useTranslation("common");
+//   const { logout, isAuth } = useUserContext();
 
-  return (
-    <aside className="fixed md:hidden top-0 bg-white z-10 border-2 min-h-full left-0 w-1/2 p-5">
-      <div className="flex flex-col gap-5 items-center">
-        <button
-          className=" self-end border-2"
-          onClick={() => setOpenSideMenu(false)}
-        >
-          Close
-        </button>
+//   return (
+//     <aside className="fixed md:hidden top-0 bg-white z-10 border-2 min-h-full left-0 w-1/2 p-5">
+//       <div className="flex flex-col gap-5 items-center">
+//         <button
+//           className=" self-end border-2"
+//           onClick={() => setOpenSideMenu(false)}
+//         >
+//           Close
+//         </button>
 
-        <nav className="flex flex-col gap-5">
-          <Link href="/">{t("home")}</Link>
-          <Link href="/posts">Posts</Link>
+//         <nav className="flex flex-col gap-5">
+//           <Link href="/">{t("home")}</Link>
+//           <Link href="/posts">Posts</Link>
 
-          {!isAuth && (
-            <Link href="/auth/login" className="text-xl">
-              {t("login")}
-            </Link>
-          )}
+//           {!isAuth && (
+//             <Link href="/auth/login" className="text-xl">
+//               {t("login")}
+//             </Link>
+//           )}
 
-          {isAuth && (
-            <button
-              onClick={() => {
-                logout();
-                router.reload();
-              }}
-              className="text-xl"
-            >
-              Log out
-            </button>
-          )}
-        </nav>
-      </div>
-    </aside>
-  );
-};
+//           {isAuth && (
+//             <button
+//               onClick={() => {
+//                 logout();
+//                 router.reload();
+//               }}
+//               className="text-xl"
+//             >
+//               Log out
+//             </button>
+//           )}
+//         </nav>
+//       </div>
+//     </aside>
+//   );
+// };

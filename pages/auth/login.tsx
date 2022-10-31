@@ -1,7 +1,10 @@
+import Layout from '@/components/layouts/Layout';
+import Image from 'next/image';
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useUserContext } from "../../context/user/UserProvider";
+import treeImg from '../../public/assets/tree.jpg';
 
 export default function Login() {
   const router = useRouter();
@@ -27,50 +30,70 @@ export default function Login() {
       password: user.password,
     });
 
-    router.reload();
+    router.push("/posts");
   };
 
   return (
-    <div className="min-h-[80vh] grid place-content-center ">
+    <Layout>
+
+    <div className="login">
+
+      <h1 className='login__heading'>Welcome to{' '}
+      <span>TreePost</span>
+       </h1>
+
+      <div className="login__group">
+        <Image
+          src={treeImg}
+          className="login__img"
+          placeholder="blur"
+          alt="login image"
+        />
+
       <form
         onSubmit={handleSubmit}
-        className="border-2 p-10 flex flex-col gap-5 rounded-md shadow-md"
+        className="form"
       >
-        <div className=" flex flex-col gap-5">
-          <label htmlFor="email">Email</label>
+        <div className="form__group">
+          <label htmlFor="email" className="form__label">
+            Email
+          </label>
           <input
             type="text"
             name="email"
             id="email"
             value={user.email}
             onChange={handleChange}
-            className="border-2 outline-none p-2 rounded-md"
+            className="form__input"
           />
         </div>
 
-        <div className=" flex flex-col gap-5">
-          <label htmlFor="password">Password</label>
+        <div className="form__group">
+          <label className="form__label" htmlFor="password">
+            Password
+          </label>
           <input
             type="password"
             name="password"
             id="password"
             value={user.password}
             onChange={handleChange}
-            className="border-2 outline-none p-2 rounded-md"
+            className="form__input"
           />
         </div>
 
-        <button
-          type="submit"
-          className=" px-4 py-2 bg-blue-600 w-fit text-white rounded-md mx-auto"
-        >
+        <button type="submit" className="form__button">
           Login
         </button>
 
-        <Link href={"/register"} className="text-sm text-blue-500">
+        <Link href={"/auth/register"} className="form__link">
           Not a member? Register
         </Link>
       </form>
+
+      </div>
     </div>
+
+    </Layout>
   );
 }

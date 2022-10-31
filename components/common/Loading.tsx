@@ -2,7 +2,7 @@ export default function Loading() {
   return (
     <div className="loading">
       <svg
-        className="loading__svg" 
+        className="loading__svg"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
