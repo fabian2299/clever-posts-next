@@ -1,0 +1,18 @@
+@use '../../base/mixins' as m;
+
+.main {
+  overflow-x: hidden;
+  min-height: 90vh;
+  margin-inline: auto;
+  padding: 0 2.5rem;
+  width: 100%;
+
+  @include m.tablet {
+    max-width: 1248px
+  }
+
+  @include m.desktop {
+    max-width: 1536px
+  }
+
+}

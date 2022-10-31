@@ -62,18 +62,16 @@ export default function Posts() {
   return (
     !!isClient && (
       <Layout>
-        <div className="">
-          <h1 className="text-center font-bold text-2xl text-green-600">
-            {t("posts")}
-          </h1>
+        <>
+          <h1 className="heading">{t("posts")}</h1>
 
-          <div className="flex justify-center mt-10 gap-2 md:gap-10">
+          <section className="search">
             <SearchPosts searchTerm={searchTerm} handleChange={handleChange} />
             <SelectUser sortVal={sortVal} setSortVal={setSortVal} />
-          </div>
+          </section>
 
           {renderPosts()}
-        </div>
+        </>
       </Layout>
     )
   );

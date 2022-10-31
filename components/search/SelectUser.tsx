@@ -15,7 +15,7 @@ export default function SelectUser({ sortVal, setSortVal }: Props) {
     <select
       name="user"
       id="userID"
-      className="border-2 rounded-md p-2"
+      className="border-2 rounded-md p-2 search__select"
       value={sortVal}
       onChange={(e) => setSortVal(e.target.value)}
     >

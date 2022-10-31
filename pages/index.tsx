@@ -4,7 +4,7 @@ import Layout from "../components/layouts/Layout";
 import { useUserContext } from "../context/user/UserProvider";
 import useClient from "../hooks/useClient";
 
-export default function Home() {
+export default function Home(): any {
   const { isClient } = useClient();
   const { user } = useUserContext();
 

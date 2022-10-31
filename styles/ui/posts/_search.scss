@@ -1,0 +1,35 @@
+@use '../../base/mixins' as m;
+
+.search {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 3rem;
+  gap: 2rem;
+
+  @include m.tablet {
+    flex-direction: row;
+  }
+
+  &__input {
+    width: 100%;
+    max-width: 500px;
+    padding: 1rem;
+    border: 1px solid var(--gray);
+    border-radius: 10px;
+    outline: none;
+    font-size: 2rem;
+    color: var(--dark-gray);
+  }
+
+  &__select {
+    width: 100%;
+    max-width: 150px;
+    padding: 1rem;
+    border: 1px solid var(--gray);
+    border-radius: 10px;
+    outline: none;
+    font-size: 2rem;
+    color: var(--dark-gray);
+  }
+}

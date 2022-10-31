@@ -30,34 +30,33 @@ export default function Header() {
   };
 
   return (
-    <header className="p-6 border-b-2 shadow-md">
-      <div className="hidden md:block container mx-auto">
-        <section className="flex items-center">
-          <div className="">
-            <h2>LOGO</h2>
-          </div>
+    <header className="header">
+      <div className="container">
+        <section className="nav">
 
-          <nav className=" flex gap-5 items-center flex-1 justify-center">
-            <Link href="/" className=" text-2xl uppercase">
+            <h2 className="nav__logo">LOGO</h2>
+
+          <nav className="nav__links">
+            <Link href="/" className="nav__link">
               {t("home")}
             </Link>
 
-            <Link href="/posts" className=" text-2xl uppercase">
+            <Link href="/posts" className="nav__link">
               Posts
             </Link>
           </nav>
 
-          <div className="flex gap-5">
+          <div className="nav__user">
             {!isAuth && (
-              <Link href="/auth/login" className=" text-2xl">
+              <Link href="/auth/login" className="nav__login">
                 {t("login")}
               </Link>
             )}
 
             {isAuth && (
               <>
-                <p>{user?.name}</p>
-                <button onClick={handleLogout}>Log Out</button>
+                <p className="nav__username">{user?.name}</p>
+                <button className="nav__logout" onClick={handleLogout}>Log Out</button>
               </>
             )}
 
@@ -66,6 +65,7 @@ export default function Header() {
               id="lang"
               value={router.locale}
               onChange={changeLang}
+              className="nav__lang"
             >
               <option value="en">EN</option>
               <option value="es">ES</option>
@@ -74,6 +74,7 @@ export default function Header() {
         </section>
       </div>
 
+      {/* Nav Mobile */}
       <section className="block md:hidden">
         <div className=" flex items-center">
           <button
@@ -93,7 +94,7 @@ export default function Header() {
               id="lang"
               value={router.locale}
               onChange={changeLang}
-              className=" "
+              className=""
             >
               <option value="en">EN</option>
               <option value="es">ES</option>

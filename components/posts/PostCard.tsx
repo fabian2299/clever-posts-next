@@ -70,14 +70,11 @@ export default function PostCard({ post }: { post: Post }) {
           <button className="post__buttons--delete" onClick={handleDelete}>
             Delete Post
           </button>
-        </div>
 
-        <Link
-          href={`/post/${id}`}
-          className=" bg-green-700 text-white py-2 px-4 rounded-md w-full post__link"
-        >
-          See Post
-        </Link>
+          <Link href={`/post/${id}`} className="post__buttons--link">
+            See Post
+          </Link>
+        </div>
       </div>
 
       <Modal isOpen={open} onClose={() => setOpen(false)}>
