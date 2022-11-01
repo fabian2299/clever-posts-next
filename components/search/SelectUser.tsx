@@ -1,4 +1,4 @@
-import { usePostsContext } from "../../context/posts/PostsContext";
+import usePostsContext from "../../hooks/usePostsContext";
 
 interface Props {
   sortVal: string;

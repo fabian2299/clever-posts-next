@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import Swal from "sweetalert2";
-import { usePostsContext } from "../../context/posts/PostsContext";
+import usePostsContext from "../../hooks/usePostsContext";
 import { Post } from "../../interface/post";
 import Error from "../common/Error";
 import Modal from "../common/Modal";
@@ -12,27 +11,17 @@ import Modal from "../common/Modal";
 export default function PostCard({ post }: { post: Post }) {
   const { deletePost, updatePost } = usePostsContext();
 
-  const [open, setOpen] = useState(false);
+  const [openModalUpdate, setOpenModalUpdate] = useState(false);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
   const [newBody, setNewBody] = useState(post.body);
   const [error, setError] = useState("");
 
   const { title, userId, id, body } = post;
 
   const handleDelete = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deletePost(id);
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
-      }
-    });
+    deletePost(id);
+    setOpenModalDelete(false);
+    toast.success("Post deleted");
   };
 
   const handleUpdate = () => {
@@ -40,7 +29,7 @@ export default function PostCard({ post }: { post: Post }) {
     if (newBody.length < 10) return;
 
     updatePost({ id, body: newBody });
-    setOpen(false);
+    setOpenModalUpdate(false);
     toast.success("Post updated successfully");
   };
 
@@ -64,7 +53,7 @@ export default function PostCard({ post }: { post: Post }) {
         <div className="post__buttons">
           <button
             className="post__buttons--update"
-            onClick={() => setOpen(true)}
+            onClick={() => setOpenModalUpdate(true)}
           >
             <div>
               Edit
@@ -72,7 +61,10 @@ export default function PostCard({ post }: { post: Post }) {
             </div>
           </button>
 
-          <button className="post__buttons--delete" onClick={handleDelete}>
+          <button
+            className="post__buttons--delete"
+            onClick={() => setOpenModalDelete(true)}
+          >
             <div>
               Delete
               <MdDelete />
@@ -85,32 +77,74 @@ export default function PostCard({ post }: { post: Post }) {
         </div>
       </div>
 
-      <Modal isOpen={open} onClose={() => setOpen(false)}>
-        <div className="edit-modal">
-          <button className="edit-modal__close" onClick={() => setOpen(false)}>
-            close
-          </button>
+      {openModalDelete && (
+        <Modal
+          isOpen={openModalDelete}
+          onClose={() => setOpenModalDelete(false)}
+        >
+          <div className="delete-modal">
+            <button
+              className="delete-modal__close"
+              onClick={() => setOpenModalDelete(false)}
+            >
+              close
+            </button>
 
-          {error && <Error error={error} />}
+            <h3 className="delete-modal__heading">
+              Are you sure you want to delete the post with id:{" "}
+              <span>{id}</span>?
+            </h3>
 
-          <textarea
-            name="content"
-            id="content"
-            className="edit-modal__textarea"
-            value={newBody}
-            onChange={(e) => setNewBody(e.target.value)}
-            placeholder="Enter new content"
-          />
+            <div className="delete-modal__buttons">
+              <button onClick={handleDelete} className="delete-modal__confirm">
+                Yes, Delete Post
+              </button>
 
-          <button
-            className="edit-modal__update"
-            onClick={handleUpdate}
-            disabled={!!error}
-          >
-            Update
-          </button>
-        </div>
-      </Modal>
+              <button
+                onClick={() => setOpenModalDelete(false)}
+                className="delete-modal__close"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {openModalUpdate && (
+        <Modal
+          isOpen={openModalUpdate}
+          onClose={() => setOpenModalUpdate(false)}
+        >
+          <div className="edit-modal">
+            <button
+              className="edit-modal__close"
+              onClick={() => setOpenModalUpdate(false)}
+            >
+              close
+            </button>
+
+            {error && <Error error={error} />}
+
+            <textarea
+              name="content"
+              id="content"
+              className="edit-modal__textarea"
+              value={newBody}
+              onChange={(e) => setNewBody(e.target.value)}
+              placeholder="Enter new content"
+            />
+
+            <button
+              className="edit-modal__update"
+              onClick={handleUpdate}
+              disabled={!!error}
+            >
+              Update
+            </button>
+          </div>
+        </Modal>
+      )}
     </>
   );
 }

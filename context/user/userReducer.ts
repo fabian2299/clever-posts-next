@@ -1,24 +1,34 @@
-import { UserState, initialState } from "./UserProvider";
-import { User } from "../../interface/user";
-import { setCookie } from "cookies-next";
+import { User } from "@/interface/user";
+import { initialState, UserState } from "./UserProvider";
 
 type UserActionTypes =
-  | { type: "GET_USER"; payload: { user: User; isAuth: boolean } }
-  | { type: "LOGOUT" }
-  | { type: "LOGIN"; payload: { user: User } };
+  | { type: "LOGIN"; payload: { user: User } }
+  | { type: "REGISTER"; payload: { user: User } }
+  | { type: "LOGOUT" };
 
-export const UserReducer = (
+export const userReducer = (
   state = initialState,
   action: UserActionTypes
 ): UserState => {
   switch (action.type) {
-    case "GET_USER":
+    case "LOGIN":
+    case "REGISTER":
       return {
         ...state,
-        user: action.payload.user,
-        isAuth: action.payload.isAuth,
+        user: { ...action.payload.user },
+        isAuth: "true",
+        users: state.users.find(
+          (user) => user.email === action.payload.user.email
+        )
+          ? state.users
+          : [...state.users, action.payload.user],
       };
-    default:
-      return state;
+
+    case "LOGOUT":
+      return {
+        ...state,
+        user: null,
+        isAuth: "",
+      };
   }
 };

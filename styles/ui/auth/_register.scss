@@ -5,6 +5,7 @@
   display: grid;
   place-content: center;
 
+
   &__heading {
     @include m.heading;
     margin-bottom: 2rem;

@@ -2,8 +2,10 @@ import { User } from "../../interface/user";
 import { createContext } from "react";
 interface UserContextProps {
   user: User | null;
-  isAuth: boolean;
+  isAuth: string;
+  users: User[];
   login: (user: User) => void;
+  register: (user: User) => void;
   logout: () => void;
 }
 

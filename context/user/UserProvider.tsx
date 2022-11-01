@@ -1,17 +1,23 @@
-import { useContext, useReducer, useEffect } from "react";
-import { User } from "../../interface/user";
-import { UserReducer } from "./userReducer";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
+import { useEffect, useReducer } from "react";
+import { User } from "../../interface/user";
 import { UserContext } from "./UserContext";
+import { userReducer } from "./userReducer";
 
 export interface UserState {
   user: User | null;
-  isAuth: boolean;
+  users: User[];
+  isAuth: string;
 }
 
 export const initialState: UserState = {
-  user: JSON.parse(getCookie("user")?.toString() ?? "null"),
-  isAuth: Boolean(getCookie("auth")),
+  users:
+    typeof window !== "undefined" &&
+    JSON.parse(localStorage.getItem("users") ?? "[]"),
+  user:
+    typeof window !== "undefined" &&
+    JSON.parse(localStorage.getItem("user") ?? "null"),
+  isAuth: getCookie("auth")?.toString() ?? "",
 };
 
 export default function UserProvider({
@@ -19,40 +25,34 @@ export default function UserProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [state, dispatch] = useReducer(UserReducer, initialState);
+  const [state, dispatch] = useReducer(userReducer, initialState);
 
   const login = (user: User) => {
-    setCookie("auth", true);
-    setCookie("user", JSON.stringify(user));
+    setCookie("auth", "true");
+    dispatch({ type: "LOGIN", payload: { user } });
+  };
+
+  const register = (user: User) => {
+    setCookie("auth", "true");
+    dispatch({ type: "REGISTER", payload: { user } });
   };
 
   const logout = () => {
     deleteCookie("auth");
-    deleteCookie("user");
+    dispatch({ type: "LOGOUT" });
   };
 
-  // Get user and auth status from cookies
   useEffect(() => {
-    const user: User = JSON.parse(getCookie("user")?.toString() ?? "null");
-    const isAuth = Boolean(getCookie("auth") ?? false);
+    localStorage.setItem("user", JSON.stringify(state.user));
+  }, [state.user]);
 
-    dispatch({
-      type: "GET_USER",
-      payload: { user, isAuth },
-    });
-  }, []);
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(state.users));
+  }, [state.users]);
 
   return (
-    <UserContext.Provider value={{ ...state, login, logout }}>
+    <UserContext.Provider value={{ ...state, login, logout, register }}>
       {children}
     </UserContext.Provider>
   );
 }
-
-export const useUserContext = () => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error("useUserContext must be used within a UserProvider");
-  }
-  return context;
-};

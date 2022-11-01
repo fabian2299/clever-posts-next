@@ -1,17 +1,19 @@
 import Layout from "@/components/layouts/Layout";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useUserContext } from "../../context/user/UserProvider";
+import useUserContext from "../../hooks/useUserContext";
 import treeImg from "../../public/assets/tree.jpg";
 
 export default function Login() {
   const router = useRouter();
-  const { login } = useUserContext();
+  const { users, register } = useUserContext();
 
   const [user, setUser] = useState({
-    name: '',
+    name: "",
     email: "",
     password: "",
   });
@@ -24,14 +26,17 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    login({
+    const userExists = users.find((u) => u.email === user.email);
+    if (userExists) return alert("User already exists");
+
+    register({
       id: new Date().getTime(),
-      name: user.name,
       email: user.email,
+      name: user.name,
       password: user.password,
     });
 
-    router.push("/posts");
+    router.reload();
   };
 
   return (
@@ -50,7 +55,7 @@ export default function Login() {
           />
 
           <form onSubmit={handleSubmit} className="form">
-              <div className="form__group">
+            <div className="form__group">
               <label htmlFor="name" className="form__label">
                 Name
               </label>
@@ -93,7 +98,7 @@ export default function Login() {
             </div>
 
             <button type="submit" className="form__button">
-              Login
+              Sign Up
             </button>
 
             <Link href={"/auth/login"} className="form__link">
@@ -105,3 +110,11 @@ export default function Login() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ["common"])),
+    },
+  };
+};

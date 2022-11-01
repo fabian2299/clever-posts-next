@@ -1,8 +1,8 @@
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Layout from "../components/layouts/Layout";
-import { useUserContext } from "../context/user/UserProvider";
 import useClient from "../hooks/useClient";
+import useUserContext from "../hooks/useUserContext";
 
 export default function Home(): any {
   const { isClient } = useClient();

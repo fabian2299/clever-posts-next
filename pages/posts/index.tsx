@@ -9,8 +9,8 @@ import Layout from "../../components/layouts/Layout";
 import PostList from "../../components/posts/PostList";
 import SearchPosts from "../../components/search/SearchPosts";
 import SelectUser from "../../components/search/SelectUser";
-import { usePostsContext } from "../../context/posts/PostsContext";
 import useClient from "../../hooks/useClient";
+import usePostsContext from "../../hooks/usePostsContext";
 import { Post } from "../../interface/post";
 
 export default function Posts() {

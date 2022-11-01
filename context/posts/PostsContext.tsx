@@ -1,10 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
+import useUserContext from "../../hooks/useUserContext";
 import { Post } from "../../interface/post";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
 import { postsReducer } from "./postsReducer";
@@ -34,6 +29,7 @@ export default function PostsProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const { isAuth } = useUserContext();
   const [state, dispatch] = useReducer(postsReducer, initialState);
 
   const [loading, setLoading] = useState(false);
@@ -62,6 +58,7 @@ export default function PostsProvider({
   };
 
   useEffect(() => {
+    if (isAuth) return;
     const getPosts = async () => {
       setLoading(true);
       try {
@@ -85,7 +82,7 @@ export default function PostsProvider({
       }
     };
     getPosts();
-  }, []);
+  }, [isAuth]);
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(state.posts));
@@ -105,11 +102,3 @@ export default function PostsProvider({
     </PostsContext.Provider>
   );
 }
-
-export const usePostsContext = () => {
-  const context = useContext(PostsContext);
-  if (context === undefined) {
-    throw new Error("usePostsContext must be used within a PostsProvider");
-  }
-  return context;
-};

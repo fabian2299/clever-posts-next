@@ -2,7 +2,8 @@ import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { useUserContext } from "../../context/user/UserProvider";
+import { BsTreeFill } from "react-icons/bs";
+import useUserContext from "../../hooks/useUserContext";
 
 export default function Header() {
   const router = useRouter();
@@ -33,7 +34,12 @@ export default function Header() {
     <header className="header">
       <div className="container">
         <section className="nav">
-          <h2 className="nav__logo">LOGO</h2>
+          <Link href="/">
+            <div className="nav__logo-group">
+              <BsTreeFill className="nav__logo" />
+              <p>TreePost</p>
+            </div>
+          </Link>
 
           <nav className="nav__links">
             <Link href="/" className="nav__link">

@@ -10,8 +10,8 @@ export default function NotFound({ searchTerm }: { searchTerm: string }) {
       <p>Try searching with a different term or filter by a user.</p>
 
       <Image
-        width={500}
-        height={500}
+        width={600}
+        height={300}
         src={"/assets/not-found.jpg"}
         alt="not found"
         className="not-found__img"

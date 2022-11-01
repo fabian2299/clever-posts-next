@@ -14,7 +14,6 @@
 @mixin btn($bgColor, $textColor) {
   background-color: $bgColor;
   color: $textColor;
-  padding: 1.4rem;
   font-size: 1.4rem;
   display: inline-block;
   font-weight: 700;
@@ -23,6 +22,11 @@
   transition: background-color;
   transition-duration: 300ms;
   border-radius: 15px;
+  border: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 1.4rem;
+  cursor: pointer;
 
   @include tablet {
     width: auto;
