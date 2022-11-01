@@ -82,18 +82,18 @@ export default function Header() {
       </div>
 
       {/* Nav Mobile */}
-      {/* <section className="block md:hidden">
-        <div className=" flex items-center">
+      <section className="section">
+        <div className="nav">
           <button
-            className="border-2 "
+            className="nav__menu "
             onClick={() => setOpenSideMenu(!openSideMenu)}
           >
-            open
+            menu
           </button>
 
-          <div className="flex-1 text-center" />
+          <div />
 
-          <div className="flex items-center gap-2">
+          <div className="nav__group">
             {isAuth && <p>{user?.name}</p>}
 
             <select
@@ -101,7 +101,7 @@ export default function Header() {
               id="lang"
               value={router.locale}
               onChange={changeLang}
-              className=""
+              className="nav__lang"
             >
               <option value="en">EN</option>
               <option value="es">ES</option>
@@ -110,49 +110,49 @@ export default function Header() {
 
           {openSideMenu && <AsideMenu setOpenSideMenu={setOpenSideMenu} />}
         </div>
-      </section> */}
+      </section>
     </header>
   );
 }
 
-// const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
-//   const router = useRouter();
-//   const { t } = useTranslation("common");
-//   const { logout, isAuth } = useUserContext();
+const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
+  const router = useRouter();
+  const { t } = useTranslation("common");
+  const { logout, isAuth } = useUserContext();
 
-//   return (
-//     <aside className="fixed md:hidden top-0 bg-white z-10 border-2 min-h-full left-0 w-1/2 p-5">
-//       <div className="flex flex-col gap-5 items-center">
-//         <button
-//           className=" self-end border-2"
-//           onClick={() => setOpenSideMenu(false)}
-//         >
-//           Close
-//         </button>
+  return (
+    <aside className="mobile">
+      <div className="flex flex-col gap-5 items-center mobile__nav">
+        <button
+          className="mobile__close"
+          onClick={() => setOpenSideMenu(false)}
+        >
+          X
+        </button>
 
-//         <nav className="flex flex-col gap-5">
-//           <Link href="/">{t("home")}</Link>
-//           <Link href="/posts">Posts</Link>
+        <nav className="mobile__links">
+          <Link href="/">{t("home")}</Link>
+          <Link href="/posts">Posts</Link>
 
-//           {!isAuth && (
-//             <Link href="/auth/login" className="text-xl">
-//               {t("login")}
-//             </Link>
-//           )}
+          {!isAuth && (
+            <Link href="/auth/login" className="text-xl">
+              {t("login")}
+            </Link>
+          )}
 
-//           {isAuth && (
-//             <button
-//               onClick={() => {
-//                 logout();
-//                 router.reload();
-//               }}
-//               className="text-xl"
-//             >
-//               Log out
-//             </button>
-//           )}
-//         </nav>
-//       </div>
-//     </aside>
-//   );
-// };
+          {isAuth && (
+            <button
+              onClick={() => {
+                logout();
+                router.reload();
+              }}
+              className="text-xl"
+            >
+              Log out
+            </button>
+          )}
+        </nav>
+      </div>
+    </aside>
+  );
+};

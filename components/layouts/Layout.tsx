@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Header from "../header/Header";
+import Footer from "./Footer";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -14,6 +15,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Header />
 
       <main className="main">{children}</main>
+
+      <Footer />
     </>
   );
 }
