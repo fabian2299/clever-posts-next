@@ -30,7 +30,7 @@ export default function Header() {
 
   const handleLogout = () => {
     logout();
-    router.push("/");
+    router.reload();
   };
 
   return (
