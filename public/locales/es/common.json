@@ -15,7 +15,7 @@
     "heading": "Posts",
     "search": "Buscar post por título",
     "select": "Seleccionar Usuario",
-    "see-all": "Ver Posts",
+    "see-all": "Ver Post",
     "close-button": "cerrar",
 
     "edit": "editar",
@@ -50,7 +50,7 @@
   },
 
   "register": {
-    "heading": "Bienvenido to TreePost",
+    "heading": "Bienvenido a TreePost",
 
     "name-label": "nombre",
     "name-placeholder": "escribe tu nombre",

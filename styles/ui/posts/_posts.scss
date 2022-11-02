@@ -11,7 +11,7 @@
     @include m.grid(1, 5rem);
 
     @include m.tablet {
-      @include m.grid(2, 2rem);
+      @include m.grid(2, 5rem);
     }
 
     @include m.desktop {
@@ -27,7 +27,6 @@
   justify-content: space-between;
   height: 600px;
   width: 100%;
-  max-width: 400px;
   border: 1px solid var(--white);
   border-radius: 20px;
   padding-inline: 3rem;

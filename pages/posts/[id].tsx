@@ -33,8 +33,10 @@ export default function PostDetailsPage({ post }: { post: Post }) {
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await getAllPosts();
+
   const pathsLocale1 = data.map((post) => ({
-    params: { id: post.id.toString(), locale: locales![0] },
+    params: { id: post.id.toString() },
+    locale: locales![0],
   }));
 
   const pathsLocale2 = data.map((post) => ({
@@ -59,6 +61,5 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       ...(await serverSideTranslations(locale!, ["common"])),
       post: data,
     },
-    revalidate: 60,
   };
 };

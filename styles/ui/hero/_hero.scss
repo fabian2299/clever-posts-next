@@ -27,7 +27,7 @@
     gap: 1rem;
     backdrop-filter: brightness(60%);
 
-    @include m.tablet {
+    @include m.desktop {
       justify-content: end;
       align-items: start;
       padding-left: 10%;
@@ -40,7 +40,7 @@
     p {
       display: none;
 
-      @include m.tablet {
+      @include m.desktop {
         display: block;
         max-width: 40%;
         font-weight: 800;

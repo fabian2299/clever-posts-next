@@ -42,6 +42,7 @@
     "env-cmd": "^10.1.0",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.0",
+    "eslint-plugin-testing-library": "^5.9.1",
     "jest": "28.1.0",
     "jest-environment-jsdom": "28.1.0",
     "msw": "^0.39.2",
