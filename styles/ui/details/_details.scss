@@ -1,0 +1,32 @@
+@use '../../base/mixins' as m;
+
+.details  {
+  width: 100%;
+  max-width: 90%;
+  margin-inline: auto;
+  margin-top: 5rem;
+
+  &__heading {
+    @include m.heading;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 786px;
+    margin-inline: auto;
+    border: 1px solid var(--white);
+    border-radius: 20px;
+    padding: 5rem;
+  }
+
+  // &__user {}
+
+  // &__title {}
+
+  // &__body {}
+}

@@ -40,7 +40,7 @@ export default function Login() {
   };
 
   return (
-    <Layout>
+    <Layout title="Register">
       <div className="login">
         <h1 className="login__heading">
           Welcome to <span>TreePost</span>

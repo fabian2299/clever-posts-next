@@ -1,0 +1,66 @@
+@use '../../base/mixins' as m;
+
+.hero {
+  margin-top: 5rem;
+
+  &__heading {
+    @include m.heading;
+  }
+
+  &__bg {
+    height: 50vh;
+    width: 100%;
+    max-width: 90%;
+    margin-inline: auto;
+    background: url('/assets/hero.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+    backdrop-filter: brightness(60%);
+
+    @include m.tablet {
+      justify-content: end;
+      align-items: start;
+      padding-left: 10%;
+      padding-bottom: 10%;
+    }
+
+    // h2 {
+    // }
+
+    p {
+      display: none;
+
+      @include m.tablet {
+        display: block;
+        max-width: 40%;
+        font-weight: 800;
+        font-size: x-large;
+      }
+    }
+
+    a {
+      @include m.btn(white, #000);
+    }
+  }
+
+
+
+  
+
+  // &__image {
+  //   height: 100%;
+  //   width: 100%;
+  //   object-fit: cover;
+  //   position: absolute;
+  // }
+}

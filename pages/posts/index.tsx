@@ -1,3 +1,4 @@
+import Breadcrumb from "@/components/common/Breadcrumb";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -57,8 +58,9 @@ export default function Posts() {
 
   return (
     !!isClient && (
-      <Layout>
+      <Layout title="Posts">
         <>
+          <Breadcrumb />
           <h1 className="heading">{t("posts")}</h1>
 
           <section className="search">

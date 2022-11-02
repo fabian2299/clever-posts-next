@@ -1,19 +1,18 @@
+import Hero from "@/components/home/Hero";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Layout from "../components/layouts/Layout";
 import useClient from "../hooks/useClient";
-import useUserContext from "../hooks/useUserContext";
 
 export default function Home(): any {
   const { isClient } = useClient();
-  const { user } = useUserContext();
 
   return (
     !!isClient && (
-      <Layout>
-        <div>
-          <h1>Welcome {user?.name}</h1>
-        </div>
+      <Layout title="Home" description="Home page of treepost">
+        <>
+          <Hero />
+        </>
       </Layout>
     )
   );

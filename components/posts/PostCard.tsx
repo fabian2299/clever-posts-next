@@ -71,7 +71,7 @@ export default function PostCard({ post }: { post: Post }) {
             </div>
           </button>
 
-          <Link href={`/post/${id}`} className="post__buttons--link">
+          <Link href={`/posts/${id}`} className="post__buttons--link">
             See Post
           </Link>
         </div>

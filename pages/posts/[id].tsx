@@ -1,3 +1,4 @@
+import Breadcrumb from "@/components/common/Breadcrumb";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Layout from "../../components/layouts/Layout";
@@ -12,13 +13,17 @@ export default function PostDetailsPage({ post }: { post: Post }) {
 
   return (
     !!isClient && (
-      <Layout>
-        <div>
-          <h1>Post Details</h1>
-          <p>User:{userId}</p>
-          <p>{title}</p>
-          <p>{body}</p>
-        </div>
+      <Layout title={`Post Details ${post.id}`}>
+        <Breadcrumb />
+
+        <section className="details">
+          <h1 className="details__heading">Post Details</h1>
+          <div className="details__group">
+            <h2 className="details__title">{title}</h2>
+            <p className="details__user">User: {userId}</p>
+            <p className="details__body">{body}</p>
+          </div>
+        </section>
       </Layout>
     )
   );

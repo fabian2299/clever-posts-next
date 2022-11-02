@@ -36,7 +36,7 @@ export default function Login() {
   };
 
   return (
-    <Layout>
+    <Layout title="Login">
       <div className="login">
         <h1 className="login__heading">
           Welcome to <span>TreePost</span>

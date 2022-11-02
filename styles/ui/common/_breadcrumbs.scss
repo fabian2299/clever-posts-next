@@ -1,0 +1,25 @@
+.breadcrumb {
+  margin-top: 4rem;
+
+  &__item {
+    color: var(--white);
+  }
+
+  &__link {
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+    text-transform: capitalize;
+    font-style: italic;
+    cursor: pointer;
+
+    &:not(:last-child):hover {
+      color: var(--yellow);
+    }
+
+    &:last-child {
+      color: var(--gray);
+      cursor: default;
+    }
+  }
+}
