@@ -58,7 +58,7 @@ export default function PostsProvider({
   };
 
   useEffect(() => {
-    if (isAuth) return;
+    if (!isAuth) return;
     const getPosts = async () => {
       setLoading(true);
       try {
