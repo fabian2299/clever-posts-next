@@ -1,11 +1,17 @@
 @use "../../base/mixins" as m;
 
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .main {
   overflow-x: hidden;
-  min-height: 90vh;
   margin-inline: auto;
   padding: 0 2.5rem;
   width: 100%;
+  flex: 1;
 
   @include m.tablet {
     max-width: 768px;

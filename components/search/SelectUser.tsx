@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import usePostsContext from "../../hooks/usePostsContext";
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export default function SelectUser({ sortVal, setSortVal }: Props) {
+  const { t } = useTranslation("common");
   const { posts } = usePostsContext();
 
   // array of user ids to filter by withouth duplicates
@@ -19,7 +21,7 @@ export default function SelectUser({ sortVal, setSortVal }: Props) {
       value={sortVal}
       onChange={(e) => setSortVal(e.target.value)}
     >
-      <option value="">Select User</option>
+      <option value="">{t("posts.select")}</option>
       {userIds?.map((user, i) => {
         return (
           <option key={i} value={user}>

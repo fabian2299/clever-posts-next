@@ -11,7 +11,7 @@ interface Props {
 
 export default function Layout({ children, title, description }: Props) {
   return (
-    <>
+    <div className="layout">
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -23,6 +23,6 @@ export default function Layout({ children, title, description }: Props) {
       <main className="main">{children}</main>
 
       <Footer />
-    </>
+    </div>
   );
 }

@@ -1,13 +1,16 @@
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 
 export default function NotFound({ searchTerm }: { searchTerm: string }) {
+  const { t } = useTranslation("common");
+
   return (
     <div className="not-found  container">
       <h3>
-        No posts found for <span>{searchTerm}</span>
+        {t("posts.notFound-heading")} <span>{searchTerm}</span>
       </h3>
 
-      <p>Try searching with a different term or filter by a user.</p>
+      <p>{t("posts.notFound-text")}</p>
 
       <Image
         width={600}

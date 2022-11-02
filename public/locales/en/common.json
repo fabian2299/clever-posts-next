@@ -1,5 +1,69 @@
 {
-  "posts": "posts",
-  "home": "home",
-  "login": "login"
+  "header": {
+    "home": "home",
+    "login": "login",
+    "logout": "logout"
+  },
+
+  "home": {
+    "welcome": "welcome",
+    "hero-text": "Post your trees and get feedback from other tree lovers. Share your tree",
+    "hero-button": "See Posts"
+  },
+
+  "posts": {
+    "heading": "Posts",
+    "search": "Search posts by title",
+    "select": "Select User",
+    "see-all": "See Posts",
+    "close-button": "close",
+
+    "edit": "edit",
+    "edit-modal-button": "Update",
+
+    "delete": "delete",
+    "delete-modal": "Are you sure you want to delete this post?",
+    "delete-modal-button": "Yes, delete post",
+    "delete-modal-cancel": "Cancel",
+
+    "notFound-heading": "No posts found for",
+    "notFound-text": "Try searching for something else or filter by user",
+
+    "loading": "Loading posts..."
+  },
+
+  "post": {
+    "heading": "Post Details"
+  },
+
+  "login": {
+    "heading": "Welcome to TreePost",
+
+    "email-label": "email",
+    "email-placeholder": "Enter your email",
+
+    "password-label": "password",
+    "password-placeholder": "******",
+
+    "button": "Login",
+    "register-link": "Not a member? Register here"
+  },
+
+  "register": {
+    "heading": "Welcome to TreePost",
+
+    "name-label": "name",
+    "name-placeholder": "Enter your name",
+
+    "email-label": "email",
+    "email-placeholder": "example@example.com",
+
+    "password-label": "password",
+    "password-placeholder": "******",
+
+    "button": "sign up",
+    "register-link": "Already a member? Login here"
+  },
+
+  "footer": "Made with ❤️ by the Tree Team"
 }

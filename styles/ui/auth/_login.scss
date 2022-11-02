@@ -65,6 +65,7 @@
     color: var(--white);
     transition: border-color;
     transition-duration: 300ms;
+    outline: none;
 
     &:focus {
       border-color: var(--yellow);

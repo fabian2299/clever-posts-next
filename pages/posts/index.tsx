@@ -61,7 +61,7 @@ export default function Posts() {
       <Layout title="Posts">
         <>
           <Breadcrumb />
-          <h1 className="heading">{t("posts")}</h1>
+          <h1 className="heading">{t("posts.heading")}</h1>
 
           <section className="search">
             <SearchPosts searchTerm={searchTerm} handleChange={handleChange} />

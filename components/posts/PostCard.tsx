@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -9,6 +10,7 @@ import Error from "../common/Error";
 import Modal from "../common/Modal";
 
 export default function PostCard({ post }: { post: Post }) {
+  const { t } = useTranslation("common");
   const { deletePost, updatePost } = usePostsContext();
 
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
@@ -56,7 +58,7 @@ export default function PostCard({ post }: { post: Post }) {
             onClick={() => setOpenModalUpdate(true)}
           >
             <div>
-              Edit
+              {t("posts.edit")}
               <AiFillEdit />
             </div>
           </button>
@@ -66,13 +68,13 @@ export default function PostCard({ post }: { post: Post }) {
             onClick={() => setOpenModalDelete(true)}
           >
             <div>
-              Delete
+              {t("posts.delete")}
               <MdDelete />
             </div>
           </button>
 
           <Link href={`/posts/${id}`} className="post__buttons--link">
-            See Post
+            {t("posts.see-all")}
           </Link>
         </div>
       </div>
@@ -87,24 +89,21 @@ export default function PostCard({ post }: { post: Post }) {
               className="delete-modal__close"
               onClick={() => setOpenModalDelete(false)}
             >
-              close
+              {t("posts.close-button")}
             </button>
 
-            <h3 className="delete-modal__heading">
-              Are you sure you want to delete the post with id:{" "}
-              <span>{id}</span>?
-            </h3>
+            <h3 className="delete-modal__heading">{t("posts.delete-modal")}</h3>
 
             <div className="delete-modal__buttons">
               <button onClick={handleDelete} className="delete-modal__confirm">
-                Yes, Delete Post
+                {t("posts.delete-modal-button")}
               </button>
 
               <button
                 onClick={() => setOpenModalDelete(false)}
                 className="delete-modal__close"
               >
-                Cancel
+                {t("posts.delete-modal-cancel")}
               </button>
             </div>
           </div>
@@ -121,7 +120,7 @@ export default function PostCard({ post }: { post: Post }) {
               className="edit-modal__close"
               onClick={() => setOpenModalUpdate(false)}
             >
-              close
+              {t("posts.close-button")}
             </button>
 
             {error && <Error error={error} />}
@@ -132,7 +131,6 @@ export default function PostCard({ post }: { post: Post }) {
               className="edit-modal__textarea"
               value={newBody}
               onChange={(e) => setNewBody(e.target.value)}
-              placeholder="Enter new content"
             />
 
             <button
@@ -140,7 +138,7 @@ export default function PostCard({ post }: { post: Post }) {
               onClick={handleUpdate}
               disabled={!!error}
             >
-              Update
+              {t("posts.edit-modal-button")}
             </button>
           </div>
         </Modal>

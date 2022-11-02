@@ -1,14 +1,19 @@
 import Layout from "@/components/layouts/Layout";
 import { GetStaticProps } from "next";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import useUserContext from "../../hooks/useUserContext";
 import treeImg from "../../public/assets/tree.jpg";
+import { isValidEmail } from "../../utils/index";
 
 export default function Login() {
+  const { t } = useTranslation("common");
+
   const router = useRouter();
   const { users, register } = useUserContext();
 
@@ -17,6 +22,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,7 +33,26 @@ export default function Login() {
     e.preventDefault();
 
     const userExists = users.find((u) => u.email === user.email);
-    if (userExists) return alert("User already exists");
+
+    if (userExists) {
+      toast.error("User already exists");
+      return;
+    }
+
+    if (user.name === "") {
+      toast.error("Name is required");
+      return;
+    }
+
+    if (!isValidEmail(user.email)) {
+      toast.error("Email is not valid");
+      return;
+    }
+
+    if (user.password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
 
     register({
       id: new Date().getTime(),
@@ -42,9 +67,7 @@ export default function Login() {
   return (
     <Layout title="Register">
       <div className="login">
-        <h1 className="login__heading">
-          Welcome to <span>TreePost</span>
-        </h1>
+        <h1 className="login__heading">{t("register.heading")}</h1>
 
         <div className="login__group">
           <Image
@@ -57,7 +80,7 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="form">
             <div className="form__group">
               <label htmlFor="name" className="form__label">
-                Name
+                {t("register.name-label")}
               </label>
               <input
                 type="text"
@@ -66,12 +89,13 @@ export default function Login() {
                 value={user.name}
                 onChange={handleChange}
                 className="form__input"
+                placeholder={t("register.name-placeholder")}
               />
             </div>
 
             <div className="form__group">
               <label htmlFor="email" className="form__label">
-                Email
+                {t("register.email-label")}
               </label>
               <input
                 type="text"
@@ -80,12 +104,13 @@ export default function Login() {
                 value={user.email}
                 onChange={handleChange}
                 className="form__input"
+                placeholder={t("register.email-placeholder")}
               />
             </div>
 
             <div className="form__group">
               <label className="form__label" htmlFor="password">
-                Password
+                {t("register.password-label")}
               </label>
               <input
                 type="password"
@@ -94,15 +119,16 @@ export default function Login() {
                 value={user.password}
                 onChange={handleChange}
                 className="form__input"
+                placeholder="********"
               />
             </div>
 
             <button type="submit" className="form__button">
-              Sign Up
+              {t("register.button")}
             </button>
 
             <Link href={"/auth/login"} className="form__link">
-              Already have an account? Log in
+              {t("register.register-link")}
             </Link>
           </form>
         </div>

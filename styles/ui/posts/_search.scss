@@ -15,11 +15,16 @@
     width: 100%;
     max-width: 500px;
     padding: 1rem;
-    border: 1px solid var(--gray);
     border-radius: 10px;
-    outline: none;
+    border: 2px solid transparent;
     font-size: 2rem;
     color: var(--dark-gray);
+    outline: none;
+
+    &:focus {
+      border-color: var(--yellow);
+    }
+
   }
 
   &__select {

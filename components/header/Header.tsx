@@ -1,8 +1,10 @@
+import { setCookie } from "cookies-next";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { BsTreeFill } from "react-icons/bs";
+import { GiHamburgerMenu } from "react-icons/gi";
 import useUserContext from "../../hooks/useUserContext";
 
 export default function Header() {
@@ -14,6 +16,7 @@ export default function Header() {
 
   const changeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const locale = e.target.value;
+    setCookie("NEXT_LOCALE", locale);
 
     router.push(
       {
@@ -27,7 +30,7 @@ export default function Header() {
 
   const handleLogout = () => {
     logout();
-    router.reload();
+    router.push("/");
   };
 
   return (
@@ -43,7 +46,7 @@ export default function Header() {
 
           <nav className="nav__links">
             <Link href="/" className="nav__link">
-              {t("home")}
+              {t("header.home")}
             </Link>
 
             <Link href="/posts" className="nav__link">
@@ -54,7 +57,7 @@ export default function Header() {
           <div className="nav__user">
             {!isAuth && (
               <Link href="/auth/login" className="nav__login">
-                {t("login")}
+                {t("header.login")}
               </Link>
             )}
 
@@ -62,7 +65,7 @@ export default function Header() {
               <>
                 <p className="nav__username">{user?.name}</p>
                 <button className="nav__logout" onClick={handleLogout}>
-                  Log Out
+                  {t("header.logout")}
                 </button>
               </>
             )}
@@ -88,7 +91,7 @@ export default function Header() {
             className="nav__menu "
             onClick={() => setOpenSideMenu(!openSideMenu)}
           >
-            menu
+            <GiHamburgerMenu className="nav__menu-icon" />
           </button>
 
           <div />
@@ -122,7 +125,7 @@ const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
 
   return (
     <aside className="mobile">
-      <div className="flex flex-col gap-5 items-center mobile__nav">
+      <div className="mobile__nav">
         <button
           className="mobile__close"
           onClick={() => setOpenSideMenu(false)}
@@ -131,14 +134,10 @@ const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
         </button>
 
         <nav className="mobile__links">
-          <Link href="/">{t("home")}</Link>
+          <Link href="/">{t("header.home")}</Link>
           <Link href="/posts">Posts</Link>
 
-          {!isAuth && (
-            <Link href="/auth/login" className="text-xl">
-              {t("login")}
-            </Link>
-          )}
+          {!isAuth && <Link href="/auth/login">{t("header.login")}</Link>}
 
           {isAuth && (
             <button
@@ -146,9 +145,8 @@ const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
                 logout();
                 router.reload();
               }}
-              className="text-xl"
             >
-              Log out
+              {t("header.logout")}
             </button>
           )}
         </nav>

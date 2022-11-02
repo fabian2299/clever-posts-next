@@ -1,15 +1,19 @@
 import Layout from "@/components/layouts/Layout";
+import { GetStaticProps } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import useUserContext from "../../hooks/useUserContext";
+import { User } from "../../interface/user";
 import treeImg from "../../public/assets/tree.jpg";
-import { GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Login() {
   const router = useRouter();
+  const { t } = useTranslation("common");
   const { login, users } = useUserContext();
 
   const [user, setUser] = useState({
@@ -25,22 +29,28 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const userExists = users.find((u) => u.email === user.email);
-    if (!userExists) return alert("User not found");
+    const storeUser = users.find((u) => u.email === user.email) as User;
+    if (!storeUser) {
+      toast.error("User not found");
+      return;
+    }
+
+    if (storeUser.password !== user.password) {
+      toast.error("Password is incorrect");
+      return;
+    }
 
     login({
-      ...userExists,
+      ...storeUser,
     });
 
-    router.reload();
+    router.push("/");
   };
 
   return (
     <Layout title="Login">
       <div className="login">
-        <h1 className="login__heading">
-          Welcome to <span>TreePost</span>
-        </h1>
+        <h1 className="login__heading">{t("login.heading")}</h1>
 
         <div className="login__group">
           <Image
@@ -53,7 +63,7 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="form">
             <div className="form__group">
               <label htmlFor="email" className="form__label">
-                Email
+                {t("login.email-label")}
               </label>
               <input
                 type="text"
@@ -62,12 +72,13 @@ export default function Login() {
                 value={user.email}
                 onChange={handleChange}
                 className="form__input"
+                placeholder={t("login.email-placeholder")}
               />
             </div>
 
             <div className="form__group">
               <label className="form__label" htmlFor="password">
-                Password
+                {t("login.password-label")}
               </label>
               <input
                 type="password"
@@ -76,15 +87,16 @@ export default function Login() {
                 value={user.password}
                 onChange={handleChange}
                 className="form__input"
+                placeholder="********"
               />
             </div>
 
             <button type="submit" className="form__button">
-              Login
+              {t("login.button")}
             </button>
 
             <Link href={"/auth/register"} className="form__link">
-              Not a member? Register
+              {t("login.register-link")}
             </Link>
           </form>
         </div>

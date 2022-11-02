@@ -1,5 +1,69 @@
 {
-  "posts": "hola",
-  "home": "casa",
-  "login": "entrar"
+  "header": {
+    "home": "inicio",
+    "login": "entrar",
+    "logout": "salir"
+  },
+
+  "home": {
+    "welcome": "Bienvenido",
+    "hero-text": "Publica tus árboles favoritos y mira los posts de otros amantes de los árboles. Comparte tu pasión por los árboles con el mundo.",
+    "hero-button": "Ver Publicaciones"
+  },
+
+  "posts": {
+    "heading": "Posts",
+    "search": "Buscar post por título",
+    "select": "Seleccionar Usuario",
+    "see-all": "Ver Posts",
+    "close-button": "cerrar",
+
+    "edit": "editar",
+    "edit-modal-button": "Editar",
+
+    "delete": "eliminar",
+    "delete-modal": "¿Estas seguro de querer eliminar este post?",
+    "delete-modal-button": "Si, eliminar",
+    "delete-modal-cancel": "cancelar",
+
+    "notFound-heading": "No se encontraron posts para",
+    "notFound-text": "Intenta buscar otro post o filtra por usuario.",
+
+    "loading": "Cargando posts..."
+  },
+
+  "post": {
+    "heading": "Detalles del Post"
+  },
+
+  "login": {
+    "heading": "Bienvenido a TreePost",
+
+    "email-label": "correo",
+    "email-placeholder": "escribe tu correo",
+
+    "password-label": "contraseña",
+    "password-placeholder": "******",
+
+    "button": "Entrar",
+    "register-link": "¿No tienes cuenta? Registrate"
+  },
+
+  "register": {
+    "heading": "Bienvenido to TreePost",
+
+    "name-label": "nombre",
+    "name-placeholder": "escribe tu nombre",
+
+    "email-label": "correo",
+    "email-placeholder": "ejemplo@ejemplo.com",
+
+    "password-label": "contraseña",
+    "password-placeholder": "******",
+
+    "button": "Registrarse",
+    "register-link": "¿Ya tienes cuenta? Inicia sesión"
+  },
+
+  "footer": "Hecho con ❤️ por el equipo de TreePost"
 }
