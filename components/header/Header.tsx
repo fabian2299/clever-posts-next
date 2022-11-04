@@ -8,6 +8,28 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import useUserContext from "../../hooks/useUserContext";
 import LogoImg from "../../public/assets/logo.png";
 
+const NavLink = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) => {
+  const router = useRouter();
+  const isActive = router.pathname === href;
+  return (
+    <Link
+      href={href}
+      className="nav__link"
+      style={{
+        color: isActive ? "var(--yellow)" : "var(--white)",
+      }}
+    >
+      {children}
+    </Link>
+  );
+};
+
 export default function Header() {
   const router = useRouter();
   const { t } = useTranslation("common");
@@ -53,17 +75,11 @@ export default function Header() {
           </Link>
 
           <nav className="nav__links">
-            <Link href="/" className="nav__link">
-              {t("header.home")}
-            </Link>
+            <NavLink href="/">{t("header.home")}</NavLink>
 
-            <Link href="/posts" className="nav__link">
-              Posts
-            </Link>
+            <NavLink href="/posts">Posts</NavLink>
 
-            <Link href="/favourites" className="nav__link">
-              {t("favourites.heading")}
-            </Link>
+            <NavLink href="/favourites">{t("favourites.heading")}</NavLink>
           </nav>
 
           <div className="nav__user">
