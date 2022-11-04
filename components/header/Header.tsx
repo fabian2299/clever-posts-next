@@ -115,12 +115,10 @@ export default function Header() {
       {/* Nav Mobile */}
       <section className="section">
         <div className="nav">
-          <button
-            className="nav__menu "
+          <GiHamburgerMenu
+            className="nav__menu"
             onClick={() => setOpenSideMenu(!openSideMenu)}
-          >
-            <GiHamburgerMenu className="nav__menu-icon" />
-          </button>
+          />
 
           <div />
 
@@ -152,7 +150,7 @@ const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
   const { logout, isAuth } = useUserContext();
 
   return (
-    <aside className="mobile">
+    <aside className="mobile open">
       <div className="mobile__nav">
         <button
           className="mobile__close"
@@ -161,11 +159,29 @@ const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
           X
         </button>
 
-        <nav className="mobile__links">
-          <Link href="/">{t("header.home")}</Link>
-          <Link href="/posts">Posts</Link>
+        <Link href="/">
+          <div className="mobile__logo">
+            <Image
+              width={60}
+              height={60}
+              src={LogoImg}
+              alt="logo tree"
+              className="nav__logo"
+              placeholder="blur"
+            />
+          </div>
+        </Link>
 
-          {!isAuth && <Link href="/auth/login">{t("header.login")}</Link>}
+        <nav className="mobile__links">
+          <NavLink href="/">{t("header.home")}</NavLink>
+          <NavLink href="/posts">Posts</NavLink>
+          <NavLink href="/favourites">{t("favourites.heading")}</NavLink>
+
+          {!isAuth && (
+            <Link href="/auth/login" className="mobile__login">
+              {t("header.login")}
+            </Link>
+          )}
 
           {isAuth && (
             <button
@@ -173,6 +189,7 @@ const AsideMenu = ({ setOpenSideMenu }: { setOpenSideMenu: any }) => {
                 logout();
                 router.reload();
               }}
+              className="mobile__logout"
             >
               {t("header.logout")}
             </button>

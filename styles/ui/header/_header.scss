@@ -101,7 +101,8 @@
 
   .nav {
     &__menu {
-      @include m.btn(#001e1d,#f9bc60 );
+      font-size: x-large;
+      color: var(--yellow);
     }
 
     > div {
@@ -126,12 +127,11 @@
 .mobile {
   position: fixed;
   top: 0;
-  background-color: var(--white);
+  background-color: var(--darker-green);
   z-index: 100;
-  border: 1px solid var(--light-gray);
   min-height: 100vh;
   left: 0;
-  width: 50%;
+  width: 60%;
   padding: 2rem;
 
   @include m.tablet {
@@ -152,9 +152,35 @@
 
   &__links {
     display: flex;
+    gap: 2rem;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    flex: 1;
   }
 
+  &__login {
+    @include m.btn(#004643,#f9bc60 );
+    padding: 1rem 1.5rem;
+    text-transform: lowercase;
+  }
+
+  &__logout {
+    @include m.btn(#004643,#f9bc60 );
+    padding: 1rem 1.5rem;
+    text-transform: lowercase;
+  }
+
+}
+
+@keyframes openMenu {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.open {
+  animation: openMenu 0.5s ease-in-out;
 }
