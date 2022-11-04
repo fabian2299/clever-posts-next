@@ -44,7 +44,7 @@ export default function Login() {
       ...storeUser,
     });
 
-    router.push("/");
+    router.reload();
   };
 
   return (

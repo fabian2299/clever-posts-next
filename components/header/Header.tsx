@@ -118,6 +118,7 @@ export default function Header() {
           <GiHamburgerMenu
             className="nav__menu"
             onClick={() => setOpenSideMenu(!openSideMenu)}
+            role="menu"
           />
 
           <div />

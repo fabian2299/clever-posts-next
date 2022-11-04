@@ -85,12 +85,30 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   const { id } = params as { id: string };
-  const data = await getPostById(id);
+  try {
+    const data = await getPostById(id);
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale!, ["common"])),
-      post: data,
-    },
-  };
+    if (!data) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+
+    return {
+      props: {
+        ...(await serverSideTranslations(locale!, ["common"])),
+        post: data,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 };
