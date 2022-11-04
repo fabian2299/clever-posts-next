@@ -2,7 +2,12 @@ import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { AiFillEdit } from "react-icons/ai";
+import {
+  AiFillEdit,
+  AiFillHeart,
+  AiOutlineArrowRight,
+  AiOutlineHeart,
+} from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import usePostsContext from "../../hooks/usePostsContext";
 import { Post } from "../../interface/post";
@@ -11,19 +16,22 @@ import Modal from "../common/Modal";
 
 export default function PostCard({ post }: { post: Post }) {
   const { t } = useTranslation("common");
-  const { deletePost, updatePost } = usePostsContext();
+  const { deletePost, updatePost, addToFavourites, favourites } =
+    usePostsContext();
 
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [newBody, setNewBody] = useState(post.body);
   const [error, setError] = useState("");
 
-  const { title, userId, id, body } = post;
+  const { title, userId, id, body, userName } = post;
+
+  const isInFavourites = favourites?.some((fav) => fav.id === id);
 
   const handleDelete = () => {
     deletePost(id);
     setOpenModalDelete(false);
-    toast.success("Post deleted");
+    toast.success(t("posts.deleted"));
   };
 
   const handleUpdate = () => {
@@ -32,21 +40,31 @@ export default function PostCard({ post }: { post: Post }) {
 
     updatePost({ id, body: newBody });
     setOpenModalUpdate(false);
-    toast.success("Post updated successfully");
+    toast.success(t("posts.updated"));
+  };
+
+  const handleFavourite = () => {
+    addToFavourites(id);
   };
 
   useEffect(() => {
     if (newBody.length < 10) {
-      setError("Body must be at least 10 characters");
+      setError(t("posts.update-error"));
     } else {
       setError("");
     }
-  }, [newBody]);
+  }, [newBody, t]);
 
   return (
     <>
-      <div className="post">
-        <p className="post__user">user: {userId}</p>
+      <div className="post fade-in">
+        <div className="post__header">
+          <p className="post__header__user">{userName}</p>
+
+          <button onClick={handleFavourite} className="post__header__btn">
+            {isInFavourites ? <AiFillHeart /> : <AiOutlineHeart />}
+          </button>
+        </div>
 
         <h2 className="post__title">{title}</h2>
 
@@ -57,9 +75,9 @@ export default function PostCard({ post }: { post: Post }) {
             className="post__buttons--update"
             onClick={() => setOpenModalUpdate(true)}
           >
-            <div>
+            <div className="post__buttons__group">
               {t("posts.edit")}
-              <AiFillEdit />
+              <AiFillEdit className="post__buttons__svg" />
             </div>
           </button>
 
@@ -67,14 +85,17 @@ export default function PostCard({ post }: { post: Post }) {
             className="post__buttons--delete"
             onClick={() => setOpenModalDelete(true)}
           >
-            <div>
+            <div className="post__buttons__group">
               {t("posts.delete")}
-              <MdDelete />
+              <MdDelete className="post__buttons__svg" />
             </div>
           </button>
 
           <Link href={`/posts/${id}`} className="post__buttons--link">
-            {t("posts.see-all")}
+            <div className="post__buttons__group">
+              {t("posts.see-all")}
+              <AiOutlineArrowRight className="post__buttons__svg" />
+            </div>
           </Link>
         </div>
       </div>

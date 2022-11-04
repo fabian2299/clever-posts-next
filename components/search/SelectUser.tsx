@@ -10,19 +10,19 @@ export default function SelectUser({ sortVal, setSortVal }: Props) {
   const { t } = useTranslation("common");
   const { posts } = usePostsContext();
 
-  // array of user ids to filter by withouth duplicates
-  const userIds = [...new Set(posts?.map((post) => post.userId))];
+  // array of user to filter by withouth duplicates
+  const users = [...new Set(posts?.map((post) => post.userName))];
 
   return (
     <select
       name="user"
       id="userID"
-      className="border-2 rounded-md p-2 search__select"
+      className="search__select"
       value={sortVal}
       onChange={(e) => setSortVal(e.target.value)}
     >
       <option value="">{t("posts.select")}</option>
-      {userIds?.map((user, i) => {
+      {users?.map((user, i) => {
         return (
           <option key={i} value={user}>
             {user}

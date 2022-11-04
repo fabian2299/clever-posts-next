@@ -17,22 +17,16 @@
   font-size: 1.4rem;
   display: inline-block;
   font-weight: 700;
-  text-align: center;
   text-transform: uppercase;
-  transition: background-color;
-  transition-duration: 300ms;
-  border-radius: 15px;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 10px;
   border: 0;
   white-space: nowrap;
   text-decoration: none;
-  padding: 1.4rem;
   cursor: pointer;
+  padding: 1rem 2rem;
 
-  @include desktop {
-    width: auto;
-    padding: 1.8rem;
-    font-size: 1.8rem;
-  }
 
   &:hover {
     background-color: darken($bgColor, 10%);
@@ -50,5 +44,9 @@
   text-transform: uppercase;
   text-align: center;
   font-weight: 400;
-  font-size: 5rem;
+  font-size: 2rem;
+
+  @include tablet {
+    font-size: 5rem;
+  }
 }

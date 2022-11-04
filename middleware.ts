@@ -35,6 +35,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (request.nextUrl.pathname.startsWith("/favourites")) {
+    const auth = request.cookies.get("auth");
+    const locale = request.cookies.get("NEXT_LOCALE") ?? "en";
+    const url = new URL(`/${locale}/auth/login`, request.url);
+
+    if (!auth) {
+      return NextResponse.redirect(url);
+    }
+    return NextResponse.next();
+  }
+
   if (request.nextUrl.pathname.startsWith("/post")) {
     const auth = request.cookies.get("auth");
     const locale = request.cookies.get("NEXT_LOCALE") ?? "en";

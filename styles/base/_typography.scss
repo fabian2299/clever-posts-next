@@ -9,6 +9,25 @@ h3 {
   color: var(--light-gray);
 }
 
+/* Fixed minimum value below the minimum breakpoint */
+p {
+  font-size: 32px;
+}
+
+/* Fluid value from 568px to 768px viewport width */
+@media screen and (min-width: 568px) {
+  p {
+    font-size: calc(32px + 16 * ((100vw - 568px) / (768 - 568)));
+  }
+}
+
+/* Fixed maximum value above the maximum breakpoint */
+@media screen and (min-width: 768px) {
+  p {
+    font-size: 48px;
+  }
+}
+
 @media (min-width: 1280px) {
   :root {
     --h1: 4rem;

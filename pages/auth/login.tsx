@@ -31,12 +31,12 @@ export default function Login() {
 
     const storeUser = users.find((u) => u.email === user.email) as User;
     if (!storeUser) {
-      toast.error("User not found");
+      toast.error(t("login.user-error"));
       return;
     }
 
     if (storeUser.password !== user.password) {
-      toast.error("Password is incorrect");
+      toast.error(t("login.password-error"));
       return;
     }
 
@@ -69,7 +69,7 @@ export default function Login() {
                 type="text"
                 name="email"
                 id="email"
-                value={user.email}
+                value={user.email.toLocaleLowerCase().trim()}
                 onChange={handleChange}
                 className="form__input"
                 placeholder={t("login.email-placeholder")}
@@ -84,7 +84,7 @@ export default function Login() {
                 type="password"
                 name="password"
                 id="password"
-                value={user.password}
+                value={user.password.toLocaleLowerCase().trim()}
                 onChange={handleChange}
                 className="form__input"
                 placeholder="********"

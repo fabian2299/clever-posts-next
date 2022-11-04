@@ -5,7 +5,7 @@ export default function NotFound({ searchTerm }: { searchTerm: string }) {
   const { t } = useTranslation("common");
 
   return (
-    <div className="not-found  container">
+    <div className="not-found container">
       <h3>
         {t("posts.notFound-heading")} <span>{searchTerm}</span>
       </h3>

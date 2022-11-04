@@ -8,17 +8,17 @@
   margin-top: 5rem;
 
   &__grid {
-    @include m.grid(1, 5rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 4rem;
 
-    @include m.tablet {
-      @include m.grid(2, 5rem);
-    }
-
-    @include m.desktop {
-      @include m.grid(3, 5rem);
+  @include m.desktop {
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
     }
   }
 }
+
+
 
 .post {
   margin-inline: auto;
@@ -27,23 +27,30 @@
   justify-content: space-between;
   height: 600px;
   width: 100%;
-  border: 1px solid var(--white);
   border-radius: 20px;
-  padding-inline: 3rem;
-  padding-block: 3rem;
+  padding: 3rem;
   background-color: #001e1d;
   transition: all 150ms ease-in-out;
   box-shadow: 5px 7px 11px -1px rgba(0, 0, 0, 0.72);
 
-  @include m.desktop {
-    gap: 2rem;
-  }
 
   &:hover {
     transform: scale(1.04);
   }
 
-  // &__user {}
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    // &__user {}
+
+    &__btn {
+      @include m.btn(transparent,#e16162 );
+      font-size: 3rem;
+    }
+  }
+
 
   &__title{
     display: -webkit-box;
@@ -61,36 +68,56 @@
 
   &__buttons {
     display: grid;
-    align-items: center;
-    margin-inline: auto;
-    gap: 2rem;
-    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 
-    button > div {
+    @include m.tablet {
+      gap: 2rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+
+    }
+
+
+     &__group {
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: small;
       gap: 1rem;
     }
 
-    button > div > svg {
-      width: 2.5rem;
-      height: 2.5rem;
+    &__svg {
+      width: 2rem;
+      height: 2rem;
+
+      @include m.tablet {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
     }
 
     &--update {
       @include m.btn(#f1c40f, #001e1d);
+      padding: 1rem 1rem;
+
     }
 
     &--delete {
       @include m.btn(#e74c3c, #fff);
+      padding: 1rem 1rem;
+
     }
 
     &--link {
+      @include m.btn(#f5f5f5, #000);
+      padding: 1rem 1rem;
       grid-column-start: 1;
       grid-column-end: 3;
       border: 1px solid var(--white);
-      @include m.btn(#f5f5f5, #000);
     }
   }
 }
@@ -98,10 +125,10 @@
 .edit-modal {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 3rem;
   align-self: center;
+  width: 100%;
   background-color: var(--dark-green);
-  border: 2px solid var(--white);
   border-radius: 20px;
   padding: 3rem;
 
@@ -111,16 +138,14 @@
   }
 
   &__textarea {
-    border: 1px solid var(--white);
-    border-radius: 20px;
     padding: 2rem;
+    border-radius: 10px;
     background-color: var(--darker-green);
     color: var(--white);
     font-size: large;
     outline: none;
     resize: none;
     height: 400px;
-    width: 300px;
 
     @include m.tablet {
       width: 500px;
@@ -138,20 +163,25 @@
 }
 
 .delete-modal{
+  width: 90%;
+  margin-inline: auto;
   display: flex;
-  width: 100%;
-  max-width: 600px;
   flex-direction: column;
-  gap: 4rem;
   align-self: center;
+  justify-content: space-between;
+  gap: 2rem;
   background-color: var(--dark-green);
-  border: 2px solid var(--white);
   border-radius: 20px;
-  padding: 3rem;
+  padding-inline: 2rem;
+  padding-block: 2rem;
+  box-shadow: 5px 7px 11px -1px rgba(0, 0, 0, 0.72);
+
+  @include m.tablet {
+    max-width: 500px;
+  }
 
   &__heading {
     width: 100%;
-    max-width: 300px;
     margin-inline: auto;
   }
 
@@ -168,6 +198,20 @@
 
   &__confirm {
     @include m.btn(#f9bc60, #fff);
-    align-self: flex-end;
+  }
+
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
+
+.fade-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+

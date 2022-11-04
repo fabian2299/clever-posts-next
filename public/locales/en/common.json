@@ -29,11 +29,16 @@
     "notFound-heading": "No posts found for",
     "notFound-text": "Try searching for something else or filter by user",
 
-    "loading": "Loading posts..."
+    "loading": "Loading posts...",
+
+    "updated": "Post updated",
+    "deleted": "Post deleted",
+    "update-error": "Post must be at least 10 characters long"
   },
 
   "post": {
-    "heading": "Post Details"
+    "heading": "Post Details",
+    "not-found": "Post not found"
   },
 
   "login": {
@@ -46,7 +51,10 @@
     "password-placeholder": "******",
 
     "button": "Login",
-    "register-link": "Not a member? Register here"
+    "register-link": "Not a member? Register here",
+
+    "password-error": "Password is incorrect",
+    "user-error": "User not found"
   },
 
   "register": {
@@ -62,7 +70,21 @@
     "password-placeholder": "******",
 
     "button": "sign up",
-    "register-link": "Already a member? Login here"
+    "register-link": "Already a member? Login here",
+
+    "exists-error": "User already exists",
+    "name-error": "Name is required",
+    "email-error": "Email is not valid",
+    "password-error": "Password must be at least 6 characters"
+  },
+
+  "favourites": {
+    "heading": "Favourites",
+    "not-found": "You have no favourites yet",
+    "loading": "Loading favourites...",
+
+    "add": "add to favourites",
+    "remove": "remove from favourites"
   },
 
   "footer": "Made with ❤️ by the Tree Team"

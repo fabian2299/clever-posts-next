@@ -30,24 +30,24 @@ export default function Posts() {
     setSearchTerm(e.target.value);
   };
 
-  // filter posts by search term and filter by user id
+  // filter posts by search term and filter by user name
   useEffect(() => {
     if (posts) {
       const filterByTerm = posts?.filter((post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
 
-      const filterByUserId = filterByTerm?.filter((post) => {
+      const filterByUserName = filterByTerm?.filter((post) => {
         if (sortVal === "") return post;
-        return post.userId === Number(sortVal);
+        return post.userName === sortVal;
       });
 
-      setFilteredPosts(filterByUserId);
+      setFilteredPosts(filterByUserName);
     }
   }, [searchTerm, sortVal, posts]);
 
   const renderPosts = () => {
-    if (loading) return <Loading />;
+    if (loading) return <Loading text={t("posts.loading")} />;
 
     if (error) return <Error error={error} />;
 

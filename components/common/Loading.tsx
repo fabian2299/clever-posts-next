@@ -1,7 +1,4 @@
-import { useTranslation } from "next-i18next";
-export default function Loading() {
-  const { t } = useTranslation("common");
-
+export default function Loading({ text }: { text: string }) {
   return (
     <div className="loading">
       <svg
@@ -25,7 +22,7 @@ export default function Loading() {
         ></path>
       </svg>
 
-      <p>{t("posts.loading")}</p>
+      <p>{text}</p>
     </div>
   );
 }

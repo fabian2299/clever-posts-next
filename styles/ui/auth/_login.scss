@@ -1,9 +1,7 @@
 @use '../../base/mixins' as m;
 
 .login {
-  min-height: 80vh;
-  display: grid;
-  place-content: center;
+  margin-top: 5rem;
 
   &__heading {
     @include m.heading;
@@ -22,11 +20,11 @@
 
   &__group {
     display: grid;
-    border: 1px solid var(--darker-green);
     border-radius: 15px;
     overflow-x: hidden;
     width: 100%;
     max-width: 800px;
+    margin-inline: auto;
     grid-template-columns: 1;
 
     @include m.tablet {
@@ -53,7 +51,8 @@
   &__label {
     color: var(--white);
     font-size: 2rem;
-    font-weight: 700
+    font-weight: 700;
+    text-transform: capitalize;
   }
 
   &__input {
@@ -74,7 +73,7 @@
 
   &__button {
     @include m.btn(#f9bc60, #001e1d);
-    padding: 1rem;
+    width: fit-content;
   }
 
   &__link {

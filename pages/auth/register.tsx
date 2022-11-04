@@ -22,7 +22,6 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,22 +34,22 @@ export default function Login() {
     const userExists = users.find((u) => u.email === user.email);
 
     if (userExists) {
-      toast.error("User already exists");
+      toast.error(t("register.exists-error"));
       return;
     }
 
     if (user.name === "") {
-      toast.error("Name is required");
+      toast.error(t("register.name-error"));
       return;
     }
 
     if (!isValidEmail(user.email)) {
-      toast.error("Email is not valid");
+      toast.error(t("register.email-error"));
       return;
     }
 
     if (user.password.length < 6) {
-      toast.error("Password must be at least 6 characters");
+      toast.error(t("register.password-error"));
       return;
     }
 
@@ -86,7 +85,7 @@ export default function Login() {
                 type="text"
                 name="name"
                 id="name"
-                value={user.name}
+                value={user.name.trim()}
                 onChange={handleChange}
                 className="form__input"
                 placeholder={t("register.name-placeholder")}

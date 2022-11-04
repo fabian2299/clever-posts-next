@@ -1,11 +1,12 @@
 import { setCookie } from "cookies-next";
 import { useTranslation } from "next-i18next";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { BsTreeFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import useUserContext from "../../hooks/useUserContext";
+import LogoImg from "../../public/assets/logo.png";
 
 export default function Header() {
   const router = useRouter();
@@ -39,8 +40,15 @@ export default function Header() {
         <section className="nav">
           <Link href="/">
             <div className="nav__logo-group">
-              <BsTreeFill className="nav__logo" />
-              <p>TreePost</p>
+              <Image
+                width={60}
+                height={60}
+                src={LogoImg}
+                alt="logo tree"
+                className="nav__logo"
+                placeholder="blur"
+              />
+              <p>TREEPOST</p>
             </div>
           </Link>
 
@@ -51,6 +59,10 @@ export default function Header() {
 
             <Link href="/posts" className="nav__link">
               Posts
+            </Link>
+
+            <Link href="/favourites" className="nav__link">
+              {t("favourites.heading")}
             </Link>
           </nav>
 

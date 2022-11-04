@@ -29,11 +29,16 @@
     "notFound-heading": "No se encontraron posts para",
     "notFound-text": "Intenta buscar otro post o filtra por usuario.",
 
-    "loading": "Cargando posts..."
+    "loading": "Cargando posts...",
+
+    "updated": "Post actualizado",
+    "deleted": "Post eliminado",
+    "update-error": "El post debe tener al menos 10 caracteres"
   },
 
   "post": {
-    "heading": "Detalles del Post"
+    "heading": "Detalles del Post",
+    "not-found": "Post no encontrado"
   },
 
   "login": {
@@ -46,7 +51,10 @@
     "password-placeholder": "******",
 
     "button": "Entrar",
-    "register-link": "¿No tienes cuenta? Registrate"
+    "register-link": "¿No tienes cuenta? Registrate",
+
+    "password-error": "Contraseña incorrecta",
+    "user-error": "Usuario no encontrado"
   },
 
   "register": {
@@ -62,7 +70,21 @@
     "password-placeholder": "******",
 
     "button": "Registrarse",
-    "register-link": "¿Ya tienes cuenta? Inicia sesión"
+    "register-link": "¿Ya tienes cuenta? Inicia sesión",
+
+    "exists-error": "El usuario ya existe",
+    "name-error": "El nombre es requerido",
+    "email-error": "El correo no es válido",
+    "password-error": "La contraseña debe tener al menos 6 caracteres"
+  },
+
+  "favourites": {
+    "heading": "Favoritos",
+    "not-found": "No tienes favoritos aún",
+    "loading": "Cargando favoritos...",
+
+    "add": "añadido a favoritos",
+    "remove": "eliminado de favoritos"
   },
 
   "footer": "Hecho con ❤️ por el equipo de TreePost"

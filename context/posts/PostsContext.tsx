@@ -1,4 +1,7 @@
+import { faker } from "@faker-js/faker";
+import { useTranslation } from "next-i18next";
 import { createContext, useEffect, useReducer, useState } from "react";
+import toast from "react-hot-toast";
 import useUserContext from "../../hooks/useUserContext";
 import { Post } from "../../interface/post";
 import { getAllPosts } from "../../lib/posts/getAllPosts";
@@ -6,22 +9,28 @@ import { postsReducer } from "./postsReducer";
 
 interface PostsContextProps {
   posts: Post[];
+  favourites: Post[];
   loading: boolean;
   error: string;
   deletePost: (id: number) => void;
   updatePost: ({ id, body }: { id: number; body: string }) => void;
+  addToFavourites: (id: number) => void;
 }
 
 export const PostsContext = createContext({} as PostsContextProps);
 
 export interface PostsState {
   posts: Post[];
+  favourites: Post[];
 }
 
 export const initialState: PostsState = {
   posts:
     typeof window !== "undefined" &&
     JSON.parse(localStorage.getItem("posts") ?? "[]"),
+  favourites:
+    typeof window !== "undefined" &&
+    JSON.parse(localStorage.getItem("favourites") ?? "[]"),
 };
 
 export default function PostsProvider({
@@ -30,6 +39,7 @@ export default function PostsProvider({
   children: React.ReactNode;
 }) {
   const { isAuth } = useUserContext();
+  const { t } = useTranslation("common");
   const [state, dispatch] = useReducer(postsReducer, initialState);
 
   const [loading, setLoading] = useState(false);
@@ -57,17 +67,59 @@ export default function PostsProvider({
     });
   };
 
+  const addToFavourites = (id: number) => {
+    const isInFavourites = state.favourites.find((post) => post.id === id);
+
+    if (isInFavourites) {
+      const newFavourites = state.favourites.filter((post) => post.id !== id);
+      toast.success(t("favourites.remove"));
+      dispatch({
+        type: "ADD_TO_FAVOURITES",
+        payload: { favourites: newFavourites },
+      });
+      return;
+    }
+
+    const newFavourites = state.favourites.concat(
+      state.posts.filter((post) => post.id === id)
+    );
+
+    toast.success(t("favourites.add"));
+
+    dispatch({
+      type: "ADD_TO_FAVOURITES",
+      payload: { favourites: newFavourites },
+    });
+  };
+
   useEffect(() => {
     if (!isAuth) return;
     const getPosts = async () => {
       setLoading(true);
       try {
         const data = await getAllPosts();
-        localStorage.setItem("posts", JSON.stringify(data));
-        console.log("fetched posts");
+        // array of unique ids
+        const users = [...new Set(data.map((post) => post.userId))];
+        // array of unique names
+        const usersWithNames = users.map((user) => ({
+          id: user,
+          name: faker.name.fullName(),
+        }));
+        // add name to each post
+        const posts = data.map((post) => {
+          let userName = "";
+          usersWithNames.forEach((user) => {
+            if (post.userId === user.id) {
+              userName = user.name;
+            }
+          });
+          return { ...post, userName };
+        });
+
+        localStorage.setItem("posts", JSON.stringify(posts));
         dispatch({
           type: "GET_POSTS",
-          payload: { posts: data },
+          payload: { posts },
         });
 
         return;
@@ -88,6 +140,10 @@ export default function PostsProvider({
     localStorage.setItem("posts", JSON.stringify(state.posts));
   }, [state.posts]);
 
+  useEffect(() => {
+    localStorage.setItem("favourites", JSON.stringify(state.favourites));
+  }, [state.favourites]);
+
   return (
     <PostsContext.Provider
       value={{
@@ -96,6 +152,7 @@ export default function PostsProvider({
         error,
         deletePost,
         updatePost,
+        addToFavourites,
       }}
     >
       {children}

@@ -24,12 +24,14 @@
   &__logo-group {
     color: var(--yellow);
     display: flex;
+    align-items: center;
     gap: 1rem;
   }
 
   &__logo {
-    height: 50px;
-    width: 50px;
+    background-color: var(--darker-green);
+    border-radius: 20px;
+    padding: 0.5rem;
   }
 
 
