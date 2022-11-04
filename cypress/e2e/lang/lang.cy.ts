@@ -6,3 +6,5 @@ it("home page shows correct translations", () => {
   cy.findByRole("combobox").select("es");
   cy.findByText(/bienvenido/i).should("exist");
 });
+
+export {};

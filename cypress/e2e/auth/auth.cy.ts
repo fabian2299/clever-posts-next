@@ -31,3 +31,5 @@ it("verified protected page and correct redirect", () => {
   cy.visit("/posts");
   cy.findByRole("button", { name: /login/i }).should("exist");
 });
+
+export {};
