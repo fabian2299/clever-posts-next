@@ -1,18 +1,15 @@
-import Breadcrumb from "@/components/common/Breadcrumb";
+import useClient from "@/hooks/useClient";
+import usePostsContext from "@/hooks/usePostsContext";
+import { Post } from "@/interface/post";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEffect, useState } from "react";
-import Error from "../../components/common/Error";
-import Loading from "../../components/common/Loading";
-import NotFound from "../../components/common/NotFound";
-import Layout from "../../components/layouts/Layout";
-import PostList from "../../components/posts/PostList";
-import SearchPosts from "../../components/search/SearchPosts";
-import SelectUser from "../../components/search/SelectUser";
-import useClient from "../../hooks/useClient";
-import usePostsContext from "../../hooks/usePostsContext";
-import { Post } from "../../interface/post";
+// components
+import { Breadcrumb, Error, Loading, NotFound } from "@/components/common";
+import { Layout } from "@/components/layouts";
+import { PostList } from "@/components/posts";
+import { SearchPosts, SelectUser } from "@/components/search";
 
 export default function Posts() {
   const { t } = useTranslation("common");

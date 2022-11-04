@@ -1,4 +1,7 @@
-import Layout from "@/components/layouts/Layout";
+import { Layout } from "@/components/layouts";
+import useUserContext from "@/hooks/useUserContext";
+import { User } from "@/interface/user";
+import treeImg from "@/public/assets/tree.jpg";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -7,9 +10,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useUserContext from "../../hooks/useUserContext";
-import { User } from "../../interface/user";
-import treeImg from "../../public/assets/tree.jpg";
 
 export default function Login() {
   const router = useRouter();

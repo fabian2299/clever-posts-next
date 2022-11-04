@@ -1,13 +1,16 @@
-import Breadcrumb from "@/components/common/Breadcrumb";
-import { GetServerSideProps } from "next";
+import useClient from "@/hooks/useClient";
+import usePostsContext from "@/hooks/usePostsContext";
+import { Post } from "@/interface/post";
+import { getAllPosts } from "@/lib/posts/getAllPosts";
+import { getPostById } from "@/lib/posts/getPostById";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Layout from "../../components/layouts/Layout";
-import useClient from "../../hooks/useClient";
-import usePostsContext from "../../hooks/usePostsContext";
-import { Post } from "../../interface/post";
+// components
+import { Breadcrumb } from "@/components/common";
+import { Layout } from "@/components/layouts";
 
 export default function PostDetailsPage() {
   const router = useRouter();
@@ -31,7 +34,7 @@ export default function PostDetailsPage() {
     }
   }, [isClient, posts, id, router]);
 
-  const { title, userId, body, userName } = post;
+  const { title, body, userName } = post;
 
   return (
     !!isClient && (
@@ -59,38 +62,35 @@ export default function PostDetailsPage() {
   );
 }
 
-// export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-//   const data = await getAllPosts();
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  const data = await getAllPosts();
 
-//   const pathsLocale1 = data.map((post) => ({
-//     params: { id: post.id.toString() },
-//     locale: locales![0],
-//   }));
+  const pathsLocale1 = data.map((post) => ({
+    params: { id: post.id.toString() },
+    locale: locales![0],
+  }));
 
-//   const pathsLocale2 = data.map((post) => ({
-//     params: { id: post.id.toString() },
-//     locale: locales![1],
-//   }));
+  const pathsLocale2 = data.map((post) => ({
+    params: { id: post.id.toString() },
+    locale: locales![1],
+  }));
 
-//   const paths = [...pathsLocale1, ...pathsLocale2];
+  const paths = [...pathsLocale1, ...pathsLocale2];
 
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   };
-// };
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
 
-export const getServerSideProps: GetServerSideProps = async ({
-  params,
-  locale,
-}) => {
-  // const { id } = params as { id: string };
-  // const data = await getPostById(id);
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  const { id } = params as { id: string };
+  const data = await getPostById(id);
 
   return {
     props: {
       ...(await serverSideTranslations(locale!, ["common"])),
-      // post: data,
+      post: data,
     },
   };
 };

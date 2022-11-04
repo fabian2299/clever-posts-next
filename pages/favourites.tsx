@@ -1,14 +1,14 @@
-import Breadcrumb from "@/components/common/Breadcrumb";
-import Layout from "@/components/layouts/Layout";
+import useClient from "@/hooks/useClient";
+import usePostsContext from "@/hooks/usePostsContext";
+import { Post } from "@/interface/post";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEffect, useState } from "react";
-import Loading from "../components/common/Loading";
-import PostList from "../components/posts/PostList";
-import useClient from "../hooks/useClient";
-import usePostsContext from "../hooks/usePostsContext";
-import { Post } from "../interface/post";
+// components
+import { Breadcrumb, Loading } from "@/components/common";
+import { Layout } from "@/components/layouts";
+import { PostList } from "@/components/posts";
 
 const NotFound = () => {
   const { t } = useTranslation("common");
@@ -29,7 +29,7 @@ export default function Favourites() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setFakeLoading(false);
-    }, 2000);
+    }, 1000);
     setFavouriteList(favourites);
     return () => clearTimeout(timer);
   }, [favourites]);

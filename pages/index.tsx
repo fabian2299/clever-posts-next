@@ -1,8 +1,9 @@
-import Hero from "@/components/home/Hero";
-import { GetStaticProps } from "next";
+import useClient from "@/hooks/useClient";
+import type { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Layout from "../components/layouts/Layout";
-import useClient from "../hooks/useClient";
+// components
+import { Hero } from "@/components/home";
+import { Layout } from "@/components/layouts";
 
 export default function Home(): any {
   const { isClient } = useClient();
