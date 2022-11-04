@@ -6,7 +6,7 @@
   max-width: 1280px;
   display: none;
 
-  @include m.tablet {
+  @include m.desktop {
     display: block;
   }
 }
@@ -95,7 +95,7 @@
 
 .section {
   display: block;
-  @include m.tablet {
+  @include m.desktop {
     display: none;
   }
 
@@ -113,7 +113,8 @@
     &__group {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      justify-content: end;
+      gap: 2rem;
     }
 
     &__lang {
@@ -134,7 +135,7 @@
   width: 60%;
   padding: 2rem;
 
-  @include m.tablet {
+  @include m.desktop {
     display: none;
   }
 
