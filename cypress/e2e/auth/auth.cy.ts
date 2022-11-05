@@ -1,5 +1,4 @@
 // I have to run test in one "it" because cypress clears the localStorage between tests.
-
 it("auth flow", () => {
   // register user
   cy.register(
