@@ -47,6 +47,20 @@ export default function PostsProvider({
 
   const deletePost = (id: number) => {
     const newPosts = state.posts.filter((post) => post.id !== id);
+    const isInFavorites = state.favourites.find((post) => post.id === id);
+
+    if (isInFavorites) {
+      const newFavoritesPosts = state.favourites.filter(
+        (post) => post.id !== id
+      );
+
+      dispatch({
+        type: "UPDATE_POST",
+        payload: { posts: newPosts, favourites: newFavoritesPosts },
+      });
+      return;
+    }
+
     dispatch({
       type: "DELETE_POST",
       payload: { posts: newPosts },
@@ -54,12 +68,22 @@ export default function PostsProvider({
   };
 
   const updatePost = ({ id, body }: { id: number; body: string }) => {
-    const updatedPosts = state.posts.map((post) => {
-      if (post.id === id) {
-        return { ...post, body };
-      }
-      return post;
-    });
+    const updatedPosts = state.posts.map((post) =>
+      post.id === id ? { ...post, body } : post
+    );
+
+    const isInFavorites = state.favourites.find((post) => post.id === id);
+
+    if (isInFavorites) {
+      const updatedFavourites = state.favourites.map((post) =>
+        post.id === id ? { ...post, body } : post
+      );
+      dispatch({
+        type: "UPDATE_POST",
+        payload: { posts: updatedPosts, favourites: updatedFavourites },
+      });
+      return;
+    }
 
     dispatch({
       type: "UPDATE_POST",
@@ -73,6 +97,7 @@ export default function PostsProvider({
     if (isInFavourites) {
       const newFavourites = state.favourites.filter((post) => post.id !== id);
       toast.success(t("favourites.remove"));
+
       dispatch({
         type: "ADD_TO_FAVOURITES",
         payload: { favourites: newFavourites },

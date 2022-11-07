@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { isValidEmail } from "../../utils/index";
 
 export default function Login() {
@@ -22,6 +23,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [passwordType, setPasswordType] = useState("password");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -111,15 +113,32 @@ export default function Login() {
               <label className="form__label" htmlFor="password">
                 {t("register.password-label")}
               </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                value={user.password}
-                onChange={handleChange}
-                className="form__input"
-                placeholder="********"
-              />
+              <div>
+                <input
+                  type={passwordType}
+                  name="password"
+                  id="password"
+                  value={user.password}
+                  onChange={handleChange}
+                  className="form__input"
+                  placeholder="********"
+                />
+                <button
+                  type="button"
+                  className="form__password-btn"
+                  onClick={
+                    passwordType === "password"
+                      ? () => setPasswordType("text")
+                      : () => setPasswordType("password")
+                  }
+                >
+                  {passwordType === "password" ? (
+                    <AiFillEyeInvisible />
+                  ) : (
+                    <AiFillEye />
+                  )}
+                </button>
+              </div>
             </div>
 
             <button type="submit" className="form__button">
